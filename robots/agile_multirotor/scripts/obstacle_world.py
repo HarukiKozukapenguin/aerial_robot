@@ -52,15 +52,15 @@ class ObstacleWorld:
             self.obs = dict()
             for i in range(len(df)):
                 name = 'obj' + str(i+1)
-                self.obs[name] = {'p': np.array(df.loc[i, 1:3].tolist())+np.array([shift_x,shift_y,0]), 'r': df.at[0,8]}
+                self.obs[name] = {'p': np.array(df.loc[i, 1:3].tolist())+np.array([shift_x,shift_y,0])+np.array([-1.7,1,0]), 'r': df.at[0,8]}
                 self.obs[name]['p'][2] = self.h / 2
                 self.spwanObstacle(name, self.m, self.obs[name]['p'], self.obs[name]['r'], self.h)
             rospy.Timer(rospy.Duration(1.0/rate), self.mainProcess)
         except pd.errors.EmptyDataError as e:
             print("tree data is empty")
             # print("self.obs: ",self.obs)
-        self.spawnWall("right_wall", 0.5, np.array([2,wall_y_position,2]) + np.array([shift_x,shift_y,0]) , 6, 0.01, 4)
-        self.spawnWall("left_wall", 0.5, np.array([2,-wall_y_position,2]) + np.array([shift_x,shift_y,0]), 6, 0.01, 4)
+        self.spawnWall("right_wall", 0.5, np.array([0,wall_y_position+1,2]) + np.array([shift_x,shift_y,0]) , 6, 0.01, 4)
+        self.spawnWall("left_wall", 0.5, np.array([0,-wall_y_position+1,2]) + np.array([shift_x,shift_y,0]), 6, 0.01, 4)
 
     def odomCb(self, msg):
         self.lock.acquire()
