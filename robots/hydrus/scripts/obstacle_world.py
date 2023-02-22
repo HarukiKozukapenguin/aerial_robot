@@ -10,6 +10,7 @@ from std_msgs.msg import Empty
 import pandas as pd
 import numpy as np
 import ros_numpy as ros_np
+from scipy.spatial.transform import Rotation as R
 import threading
 from copy import deepcopy
 
@@ -33,7 +34,7 @@ class ObstacleWorld:
         shift_y = rospy.get_param('~shift_y', 0) #init y
         print("shift_x: ",shift_x, "shift_y: ",shift_y)
 
-        wall_y_position = 0.40
+        wall_y_position = 0.70
         # debug
         # r = 0.5
         # p = [0, 0, 0] # x, y, z
@@ -58,8 +59,11 @@ class ObstacleWorld:
         except pd.errors.EmptyDataError as e:
             print("tree data is empty")
             # print("self.obs: ",self.obs)
-        self.spawnWall("right_wall", 0.5, np.array([2,wall_y_position,2]) + np.array([shift_x,shift_y,0]) , 6, 0.01, 4)
-        self.spawnWall("left_wall", 0.5, np.array([2,-wall_y_position,2]) + np.array([shift_x,shift_y,0]), 6, 0.01, 4)
+        deg = 20
+        self.spawnWall("right_wall_1", 0.5, np.array([2 - 1.5,wall_y_position,2]) + np.array([shift_x,shift_y,0]) , 3+0.2, 0.01, 4, -deg)
+        self.spawnWall("right_wall_2", 0.5, np.array([2 + 1.5,wall_y_position,2]) + np.array([shift_x,shift_y,0]) , 3+0.2, 0.01, 4, deg)
+        self.spawnWall("left_wall_1", 0.5, np.array([2 - 1.5,-wall_y_position,2]) + np.array([shift_x,shift_y,0]), 3+0.2, 0.01, 4, deg)
+        self.spawnWall("left_wall_2", 0.5, np.array([2 + 1.5,-wall_y_position,2]) + np.array([shift_x,shift_y,0]), 3+0.2, 0.01, 4, -deg)
 
     def odomCb(self, msg):
         self.lock.acquire()
@@ -150,7 +154,7 @@ class ObstacleWorld:
 
         return ret
 
-    def spawnWall(self, name, m, p, w, t, h):
+    def spawnWall(self, name, m, p, w, t, h, yaw):
 
         rospy.wait_for_service('/gazebo/delete_model')
         try:
@@ -203,8 +207,10 @@ class ObstacleWorld:
                     "</link>"  + \
                     "</model>" + \
                     "</sdf>"
+        r = R.from_euler('z', yaw, degrees=True)
+        q = r.as_quat()
 
-        ret = gazebo_interface.spawn_sdf_model_client(name, model_xml, "obstacle", Pose(Point(p[0], p[1], p[2]), Quaternion(0,0,0,1)), '', '/gazebo')
+        ret = gazebo_interface.spawn_sdf_model_client(name, model_xml, "obstacle", Pose(Point(p[0], p[1], p[2]), Quaternion(q[0], q[1], q[2], q[3])), '', '/gazebo')
         # set obstacle in model_xml setting (we cannot change obstacle shape now...)
 
         return ret
