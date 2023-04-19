@@ -8,7 +8,7 @@
 
   <!-- kinematics [m] -->
   <xacro:property name="link_length" value=".6" />
-  <xacro:property name="protector_radius" value=".1925" />
+  <xacro:property name="protector_radius" value=".1025" />
 
   <xacro:property name="head_leg_offset" value="${0.3 - 0.25884}" />
   <xacro:property name="end_leg_offset" value="${0.3 + 0.25884}" />

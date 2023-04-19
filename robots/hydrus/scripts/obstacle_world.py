@@ -59,11 +59,6 @@ class ObstacleWorld:
         except pd.errors.EmptyDataError as e:
             print("tree data is empty")
             # print("self.obs: ",self.obs)
-        deg = 20
-        self.spawnWall("right_wall_1", 0.5, np.array([2 - 1.5,wall_y_position,2]) + np.array([shift_x,shift_y,0]) , 3+0.2, 0.01, 4, -deg)
-        self.spawnWall("right_wall_2", 0.5, np.array([2 + 1.5,wall_y_position,2]) + np.array([shift_x,shift_y,0]) , 3+0.2, 0.01, 4, deg)
-        self.spawnWall("left_wall_1", 0.5, np.array([2 - 1.5,-wall_y_position,2]) + np.array([shift_x,shift_y,0]), 3+0.2, 0.01, 4, deg)
-        self.spawnWall("left_wall_2", 0.5, np.array([2 + 1.5,-wall_y_position,2]) + np.array([shift_x,shift_y,0]), 3+0.2, 0.01, 4, -deg)
 
     def odomCb(self, msg):
         self.lock.acquire()
