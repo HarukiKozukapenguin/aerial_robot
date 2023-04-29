@@ -1,0 +1,15 @@
+zeros:
+  joint1_pitch: 0.5
+  joint1_yaw: 2.5
+  joint2_pitch: 0.5
+  joint2_yaw: 2.3
+  joint3_pitch: 0.5
+  joint3_yaw: 2.1
+  joint4_pitch: 0.5 
+  joint4_yaw: 1.9
+  joint5_pitch: 0.5
+  joint5_yaw: 1.7
+  joint6_pitch: 0.5
+  joint6_yaw: 1.5708
+  joint7_pitch: 0.5
+  joint7_yaw: 1.5708

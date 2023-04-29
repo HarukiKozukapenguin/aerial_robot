@@ -4,7 +4,7 @@
   <arg name="real_machine" default="True" />
   <arg name="simulation" default="False" />
   <arg name="full_vectoring_mode"  default= "false" />
-  <arg name="type" default="quad" />
+  <arg name="type" default="octa" />
   <arg name="onboards_model" default="euclid_201709" />
   <arg name="estimate_mode"  default= "1" />
   <arg name="sim_estimate_mode"  default= "2" />
