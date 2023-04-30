@@ -104,7 +104,9 @@
   </include>
 
   ###########  Visualization of objects  ###########
-  <node pkg="dragon" type="steel_object_node" name="steel_object_node" ns="$(arg robot_ns)" output="screen">
+  <!-- <node pkg="dragon" type="steel_object_node" name="steel_object_node" ns="$(arg robot_ns)" output="screen">
+  </node> -->
+  <node pkg="dragon" type="light_bulb_node" name="light_bulb_node" ns="$(arg robot_ns)" output="screen">
   </node>
 </launch>
 
