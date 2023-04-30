@@ -7,7 +7,7 @@
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "visualize_object_node");
+  ros::init(argc, argv, "steel_object_node");
   ros::NodeHandle nh;
 
   // publisher
