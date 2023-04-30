@@ -53,6 +53,9 @@ add_dependencies(dragon_aerial_robot_controllib aerial_robot_msgs_generate_messa
 add_library(dragon_navigation src/dragon_navigation.cpp)
 target_link_libraries(dragon_navigation ${catkin_LIBRARIES})
 
+add_executable(visualize_object_node src/visualize.cpp)
+target_link_libraries(visualize_object_node ${catkin_LIBRARIES})
+
 
 # test
 # pre-build test code

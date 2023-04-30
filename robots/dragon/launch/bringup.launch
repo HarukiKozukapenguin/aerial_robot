@@ -4,7 +4,7 @@
   <arg name="real_machine" default="True" />
   <arg name="simulation" default="False" />
   <arg name="full_vectoring_mode"  default= "false" />
-  <arg name="type" default="octa" />
+  <arg name="type" default="hexadeca" />
   <arg name="onboards_model" default="euclid_201709" />
   <arg name="estimate_mode"  default= "1" />
   <arg name="sim_estimate_mode"  default= "2" />
@@ -103,6 +103,9 @@
     <arg name="spawn_yaw" value="$(arg spawn_yaw)" />
   </include>
 
+  ###########  Visualization of objects  ###########
+  <node pkg="dragon" type="visualize_object_node" name="visualize_object_node" ns="$(arg robot_ns)" output="screen">
+  </node>
 </launch>
 
 
