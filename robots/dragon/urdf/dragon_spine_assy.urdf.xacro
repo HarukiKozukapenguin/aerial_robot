@@ -63,7 +63,7 @@
       <joint name="spine_${whole_link}_end_joint" type="fixed" >
         <parent link="spinelink${whole_link}_${self}"/>
         <child link="link${whole_link_child}"/>
-        <origin xyz="${spine_length} 0 0" rpy="0 0 0" />
+        <origin xyz="${spine_length+.01} 0 0" rpy="0 0 0" />
       </joint>
     </xacro:if>
 
