@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<robot
+    xmlns:xacro="http://www.ros.org/wiki/xacro" name="dragon_link" >
+
+  <xacro:macro name="dragon_spine_assy" params="whole whole_child pitch yaw">
+    <xacro:property name="whole_link" value="${whole}" />
+    <xacro:property name="whole_link_child" value="${whole_child}" />
+    <xacro:dragon_spine_link  self="1" child="2" pitch="${pitch}" yaw="${yaw}"/>
+    <xacro:dragon_spine_link  self="2" child="3" pitch="${pitch}" yaw="${yaw}"/>
+    <xacro:dragon_spine_link  self="3" child="4" pitch="${pitch}" yaw="${yaw}"/>
+    <xacro:dragon_spine_link  self="4" child="5" pitch="${pitch}" yaw="${yaw}"/>
+    <xacro:dragon_spine_link  self="5" child="6" pitch="${pitch}" yaw="${yaw}"/>
+    <xacro:dragon_spine_link  self="6" child="6" pitch="${pitch}" yaw="${yaw}"/>
+  </xacro:macro>
+
+  <!-- D-H kai description(different from prof.nakamura) -->
+  <xacro:property name="spine_length" value=".06"/>
+  <xacro:macro name="dragon_spine_link" params="self child pitch yaw">
+    <!-- link -->
+    <link name="spinelink${whole_link}_${self}">
+      <!-- head -->
+      <xacro:if value="${self == 1}">
+        <inertial>
+          <origin xyz="${spine_length* 0.5} 0 0" rpy="0 0 0"/>
+          <mass value="0.05" />
+          <inertia
+              ixx="0.00095" iyy="0.0151" izz="0.0148"
+              ixy="-0.00098" ixz="0.0003" iyz="0.0001"/>
+        </inertial>
+        <visual>
+          <origin rpy="0 ${pi/2} 0" xyz="${spine_length* 0.5} 0 0"/>
+          <geometry>
+            <mesh filename="package://dragon/urdf/mesh/spine_link.dae"/>
+          </geometry>
+        </visual>
+      </xacro:if>
+      <xacro:unless value="${self == 1}">
+        <inertial>
+          <origin xyz="${spine_length* 0.5} 0 0" rpy="0 0 0"/>
+          <mass value="0.05" />
+          <inertia
+              ixx="0.0015" iyy="0.0198" izz="0.0189"
+              ixy="-0.0008" ixz="-0.0001" iyz="0.0001"/>
+        </inertial>
+        <visual>
+          <origin rpy="0 ${pi/2} 0" xyz="${spine_length* 0.5} 0 0"/>
+          <geometry>
+            <mesh filename="package://dragon/urdf/mesh/spine_link.dae"/>
+          </geometry>
+        </visual>
+      </xacro:unless>
+    </link>
+
+    <xacro:unless value="${self == child}">
+      <joint name="spine_${whole_link}_${self}joint" type="fixed" >
+        <parent link="spinelink${whole_link}_${self}"/>
+        <child link="spinelink${whole_link}_${child}"/>
+        <origin xyz="${spine_length} 0 0" rpy="0 ${pitch} ${yaw}" />
+      </joint>
+    </xacro:unless>
+
+    <xacro:if value="${self == child and whole_link!=whole_link_child}">
+      <joint name="spine_${whole_link}_end_joint" type="fixed" >
+        <parent link="spinelink${whole_link}_${self}"/>
+        <child link="link${whole_link_child}"/>
+        <origin xyz="${spine_length} 0 0" rpy="0 0 0" />
+      </joint>
+    </xacro:if>
+
+    <!-- delete for component test -->
+    <xacro:if value="${self == 1}">
+      <joint name="spine_${whole_link}_init_joint" type="fixed" >
+        <parent link="link${whole_link}"/>
+        <child link="spinelink${whole_link}_${self}"/>
+        <origin xyz="0 0 0" rpy="0 ${pitch} ${yaw}" />
+      </joint>
+    </xacro:if>
+
+    <!-- dummy base_link link for test -->
+    <!-- <xacro:if value="${self == 1}">
+      <link name="base_link">
+        <inertial>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <mass value="0.00001"/>
+          <inertia
+              ixx="0.000001" ixy="0.0" ixz="0.0"
+              iyy="0.000001" iyz="0.0"
+              izz="0.000002"/>
+        </inertial>
+      </link>
+      <joint name="root_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="spinelink${whole_link}_${self}"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <axis xyz="0 0 1"/>
+      </joint>
+    </xacro:if> -->
+
+    <!-- <xacro:if value="${self == 1}">
+      <link name="root">
+        <inertial>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <mass value="0.00001"/>
+          <inertia
+              ixx="0.000001" ixy="0.0" ixz="0.0"
+              iyy="0.000001" iyz="0.0"
+              izz="0.000002"/>
+        </inertial>
+      </link>
+      <joint name="root_joint" type="fixed">
+        <parent link="root"/>
+        <child link="link${self}"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <axis xyz="0 0 1"/>
+      </joint>
+    </xacro:if> -->
+  </xacro:macro>
+  
+</robot>
