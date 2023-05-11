@@ -23,23 +23,6 @@
   <xacro:property name="min_force" value="2" /> <!-- [N] -->
 
   <xacro:macro name="link_model" params="type">
-
-    <!-- box collision geometry does not work well for FCL -->
-    <collision>
-      <origin rpy="0 0 0" xyz="${link_length* 0.5} 0 0"/>
-      <geometry>
-        <box size="${link_length} 0.15 0.1686"/>
-      </geometry>
-    </collision>
-
-    <!-- cylinder collision geometry works well for FCL
-    <collision>
-      <origin rpy="0 ${pi/2} 0" xyz="${link_length* 0.5} 0 0"/>
-      <geometry>
-        <cylinder length="${link_length}" radius="0.06" />
-      </geometry>
-    </collision>
-    -->
   </xacro:macro>
 
   <!-- friction -->
