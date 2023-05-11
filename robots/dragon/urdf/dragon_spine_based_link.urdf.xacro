@@ -97,7 +97,7 @@
       <limit effort="3" lower="-3.14" upper="3.14" velocity="12.5"/>
       <parent link="link${self}"/>
       <child link="gimbal${self}_roll_module"/>
-      <origin rpy="0 0 0" xyz="${link_length/2} -0.22 0"/>
+      <origin rpy="0 0 ${pi/2}" xyz="0.02 -0.02 0"/>
       <axis xyz="1 0 0"/>
       <dynamics damping="0.1" friction="0.0"/>
     </joint>
@@ -111,9 +111,9 @@
             ixy="0" ixz="-0.0003" iyz="0"/>
       </inertial>
       <visual>
-        <origin xyz="${gimbal_roll_x_offset} 0.1 0" rpy="0 0 0"/>
+        <origin xyz="${gimbal_roll_x_offset} 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://dragon/urdf/mesh/ducted_fan_gimbal_roll.dae"/>
+          <mesh filename="package://dragon/urdf/mesh/ducted_fan_gimbal_roll_spine.dae"/>
         </geometry>
       </visual>
 
@@ -140,7 +140,7 @@
       <limit effort="3" lower="-3.14" upper="3.14" velocity="12.5"/>
       <parent link="gimbal${self}_roll_module"/>
       <child link="gimbal${self}_pitch_module"/>
-      <origin rpy="0 0 0" xyz="0 0 ${gimbal_pitch_z_offset}"/>
+      <origin rpy="0 0 0" xyz="-0.07 0 ${gimbal_pitch_z_offset}"/>
       <axis xyz="0 1 0"/>
       <dynamics damping="0.1" friction="0.0"/>
     </joint>
@@ -154,9 +154,9 @@
             ixy="0.0" ixz="0.0" iyz="0.0"/>
       </inertial>
       <visual>
-        <origin xyz="0.05 0.1 -0.05" rpy="0 0 3.14"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://dragon/urdf/mesh/ducted_fan_single_rotor.dae" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://dragon/urdf/mesh/ducted_fan_gimbal_pitch.dae"/>
         </geometry>
       </visual>
     </link>
