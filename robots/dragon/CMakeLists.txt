@@ -59,7 +59,8 @@ add_executable(light_bulb_node src/visualize/light_bulb.cpp)
 target_link_libraries(light_bulb_node ${catkin_LIBRARIES})
 add_executable(pipe_through_node src/visualize/pipe_through.cpp)
 target_link_libraries(pipe_through_node ${catkin_LIBRARIES})
-
+add_executable(tree_perching_node src/visualize/tree_perching.cpp)
+target_link_libraries(tree_perching_node ${catkin_LIBRARIES})
 
 # test
 # pre-build test code
