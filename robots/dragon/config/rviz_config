@@ -547,7 +547,7 @@ Visualization Manager:
       Marker Topic: /dragon/marker
       Name: Marker
       Namespaces:
-        basic_shapes: true
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
@@ -578,7 +578,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 7.903433322906494
+      Distance: 2.0831964015960693
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -586,17 +586,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.8553849458694458
-        Y: 0.3047645092010498
-        Z: -0.18208102881908417
+        X: 0.30778640508651733
+        Y: -0.4379171133041382
+        Z: -0.08769016712903976
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.08020248264074326
+      Pitch: -1.2297966480255127
       Target Frame: <Fixed Frame>
-      Yaw: 0.11908525228500366
+      Yaw: 5.697266578674316
     Saved: ~
 Window Geometry:
   Displays:
