@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /TF1
+        - /TF1/Frames1
         - /RobotModel1
         - /Marker1
       Splitter Ratio: 0.5
@@ -57,7 +59,7 @@ Visualization Manager:
       Enabled: false
       Frame Timeout: 15
       Frames:
-        All Enabled: true
+        All Enabled: false
       Marker Alpha: 1
       Marker Scale: 0.30000001192092896
       Name: TF
@@ -550,7 +552,7 @@ Visualization Manager:
       Value: true
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
+    Background Color: 255; 255; 255
     Default Light: true
     Fixed Frame: dragon/root
     Frame Rate: 30
@@ -576,7 +578,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.361464500427246
+      Distance: 7.903433322906494
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -584,17 +586,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.13630157709121704
-        Y: 0.16029925644397736
-        Z: -0.14848774671554565
+        X: -0.8553849458694458
+        Y: 0.3047645092010498
+        Z: -0.18208102881908417
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5497964024543762
+      Pitch: -0.08020248264074326
       Target Frame: <Fixed Frame>
-      Yaw: 3.472269058227539
+      Yaw: 0.11908525228500366
     Saved: ~
 Window Geometry:
   Displays:
