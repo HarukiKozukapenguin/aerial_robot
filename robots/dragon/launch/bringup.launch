@@ -106,7 +106,7 @@
   ###########  Visualization of objects  ###########
   <!-- <node pkg="dragon" type="steel_object_node" name="steel_object_node" ns="$(arg robot_ns)" output="screen">
   </node> -->
-  <node pkg="dragon" type="open_door_node" name="open_door_node" ns="$(arg robot_ns)" output="screen">
+  <node pkg="dragon" type="valve_node" name="valve_node" ns="$(arg robot_ns)" output="screen">
   </node>
 </launch>
 

@@ -11,7 +11,7 @@ Panels:
         - /RobotModel1
         - /Marker1
       Splitter Ratio: 0.5
-    Tree Height: 1266
+    Tree Height: 1271
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -56,10 +56,206 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: false
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        dragon/edf1_left:
+          Value: false
+        dragon/edf1_right:
+          Value: false
+        dragon/edf2_left:
+          Value: false
+        dragon/edf2_right:
+          Value: false
+        dragon/edf3_left:
+          Value: false
+        dragon/edf3_right:
+          Value: false
+        dragon/edf4_left:
+          Value: false
+        dragon/edf4_right:
+          Value: false
+        dragon/edf5_left:
+          Value: false
+        dragon/edf5_right:
+          Value: false
+        dragon/edf6_left:
+          Value: false
+        dragon/edf6_right:
+          Value: false
+        dragon/edf7_left:
+          Value: false
+        dragon/edf7_right:
+          Value: false
+        dragon/edf8_left:
+          Value: false
+        dragon/edf8_right:
+          Value: false
+        dragon/fc:
+          Value: false
+        dragon/gimbal1_pitch_module:
+          Value: false
+        dragon/gimbal1_roll_module:
+          Value: false
+        dragon/gimbal2_pitch_module:
+          Value: false
+        dragon/gimbal2_roll_module:
+          Value: false
+        dragon/gimbal3_pitch_module:
+          Value: false
+        dragon/gimbal3_roll_module:
+          Value: false
+        dragon/gimbal4_pitch_module:
+          Value: false
+        dragon/gimbal4_roll_module:
+          Value: false
+        dragon/gimbal5_pitch_module:
+          Value: false
+        dragon/gimbal5_roll_module:
+          Value: false
+        dragon/gimbal6_pitch_module:
+          Value: false
+        dragon/gimbal6_roll_module:
+          Value: false
+        dragon/gimbal7_pitch_module:
+          Value: false
+        dragon/gimbal7_roll_module:
+          Value: false
+        dragon/gimbal8_pitch_module:
+          Value: false
+        dragon/gimbal8_roll_module:
+          Value: false
+        dragon/link1:
+          Value: false
+        dragon/link2:
+          Value: false
+        dragon/link3:
+          Value: false
+        dragon/link4:
+          Value: false
+        dragon/link5:
+          Value: false
+        dragon/link6:
+          Value: false
+        dragon/link7:
+          Value: false
+        dragon/link8:
+          Value: false
+        dragon/root:
+          Value: false
+        dragon/spinelink1_1:
+          Value: false
+        dragon/spinelink1_2:
+          Value: false
+        dragon/spinelink1_3:
+          Value: false
+        dragon/spinelink1_4:
+          Value: false
+        dragon/spinelink1_5:
+          Value: false
+        dragon/spinelink1_6:
+          Value: false
+        dragon/spinelink2_1:
+          Value: false
+        dragon/spinelink2_2:
+          Value: false
+        dragon/spinelink2_3:
+          Value: false
+        dragon/spinelink2_4:
+          Value: false
+        dragon/spinelink2_5:
+          Value: false
+        dragon/spinelink2_6:
+          Value: false
+        dragon/spinelink3_1:
+          Value: false
+        dragon/spinelink3_2:
+          Value: false
+        dragon/spinelink3_3:
+          Value: false
+        dragon/spinelink3_4:
+          Value: false
+        dragon/spinelink3_5:
+          Value: false
+        dragon/spinelink3_6:
+          Value: false
+        dragon/spinelink4_1:
+          Value: false
+        dragon/spinelink4_2:
+          Value: false
+        dragon/spinelink4_3:
+          Value: false
+        dragon/spinelink4_4:
+          Value: false
+        dragon/spinelink4_5:
+          Value: false
+        dragon/spinelink4_6:
+          Value: false
+        dragon/spinelink5_1:
+          Value: false
+        dragon/spinelink5_2:
+          Value: false
+        dragon/spinelink5_3:
+          Value: false
+        dragon/spinelink5_4:
+          Value: false
+        dragon/spinelink5_5:
+          Value: false
+        dragon/spinelink5_6:
+          Value: false
+        dragon/spinelink6_1:
+          Value: false
+        dragon/spinelink6_2:
+          Value: false
+        dragon/spinelink6_3:
+          Value: false
+        dragon/spinelink6_4:
+          Value: false
+        dragon/spinelink6_5:
+          Value: false
+        dragon/spinelink6_6:
+          Value: false
+        dragon/spinelink7_1:
+          Value: false
+        dragon/spinelink7_2:
+          Value: false
+        dragon/spinelink7_3:
+          Value: false
+        dragon/spinelink7_4:
+          Value: false
+        dragon/spinelink7_5:
+          Value: false
+        dragon/spinelink7_6:
+          Value: false
+        dragon/spinelink8_1:
+          Value: false
+        dragon/spinelink8_2:
+          Value: false
+        dragon/spinelink8_3:
+          Value: false
+        dragon/spinelink8_4:
+          Value: false
+        dragon/spinelink8_5:
+          Value: false
+        dragon/spinelink8_6:
+          Value: false
+        dragon/thrust1:
+          Value: false
+        dragon/thrust2:
+          Value: false
+        dragon/thrust3:
+          Value: false
+        dragon/thrust4:
+          Value: false
+        dragon/thrust5:
+          Value: false
+        dragon/thrust6:
+          Value: false
+        dragon/thrust7:
+          Value: false
+        dragon/thrust8:
+          Value: false
       Marker Alpha: 1
       Marker Scale: 0.30000001192092896
       Name: TF
@@ -67,9 +263,132 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        dragon/root:
+          dragon/link1:
+            dragon/gimbal1_roll_module:
+              dragon/gimbal1_pitch_module:
+                dragon/edf1_left:
+                  {}
+                dragon/edf1_right:
+                  {}
+                dragon/thrust1:
+                  {}
+            dragon/spinelink1_1:
+              dragon/spinelink1_2:
+                dragon/spinelink1_3:
+                  dragon/spinelink1_4:
+                    dragon/spinelink1_5:
+                      dragon/spinelink1_6:
+                        dragon/link2:
+                          dragon/fc:
+                            {}
+                          dragon/gimbal2_roll_module:
+                            dragon/gimbal2_pitch_module:
+                              dragon/edf2_left:
+                                {}
+                              dragon/edf2_right:
+                                {}
+                              dragon/thrust2:
+                                {}
+                          dragon/spinelink2_1:
+                            dragon/spinelink2_2:
+                              dragon/spinelink2_3:
+                                dragon/spinelink2_4:
+                                  dragon/spinelink2_5:
+                                    dragon/spinelink2_6:
+                                      dragon/link3:
+                                        dragon/gimbal3_roll_module:
+                                          dragon/gimbal3_pitch_module:
+                                            dragon/edf3_left:
+                                              {}
+                                            dragon/edf3_right:
+                                              {}
+                                            dragon/thrust3:
+                                              {}
+                                        dragon/spinelink3_1:
+                                          dragon/spinelink3_2:
+                                            dragon/spinelink3_3:
+                                              dragon/spinelink3_4:
+                                                dragon/spinelink3_5:
+                                                  dragon/spinelink3_6:
+                                                    dragon/link4:
+                                                      dragon/gimbal4_roll_module:
+                                                        dragon/gimbal4_pitch_module:
+                                                          dragon/edf4_left:
+                                                            {}
+                                                          dragon/edf4_right:
+                                                            {}
+                                                          dragon/thrust4:
+                                                            {}
+                                                      dragon/spinelink4_1:
+                                                        dragon/spinelink4_2:
+                                                          dragon/spinelink4_3:
+                                                            dragon/spinelink4_4:
+                                                              dragon/spinelink4_5:
+                                                                dragon/spinelink4_6:
+                                                                  dragon/link5:
+                                                                    dragon/gimbal5_roll_module:
+                                                                      dragon/gimbal5_pitch_module:
+                                                                        dragon/edf5_left:
+                                                                          {}
+                                                                        dragon/edf5_right:
+                                                                          {}
+                                                                        dragon/thrust5:
+                                                                          {}
+                                                                    dragon/spinelink5_1:
+                                                                      dragon/spinelink5_2:
+                                                                        dragon/spinelink5_3:
+                                                                          dragon/spinelink5_4:
+                                                                            dragon/spinelink5_5:
+                                                                              dragon/spinelink5_6:
+                                                                                dragon/link6:
+                                                                                  dragon/gimbal6_roll_module:
+                                                                                    dragon/gimbal6_pitch_module:
+                                                                                      dragon/edf6_left:
+                                                                                        {}
+                                                                                      dragon/edf6_right:
+                                                                                        {}
+                                                                                      dragon/thrust6:
+                                                                                        {}
+                                                                                  dragon/spinelink6_1:
+                                                                                    dragon/spinelink6_2:
+                                                                                      dragon/spinelink6_3:
+                                                                                        dragon/spinelink6_4:
+                                                                                          dragon/spinelink6_5:
+                                                                                            dragon/spinelink6_6:
+                                                                                              dragon/link7:
+                                                                                                dragon/gimbal7_roll_module:
+                                                                                                  dragon/gimbal7_pitch_module:
+                                                                                                    dragon/edf7_left:
+                                                                                                      {}
+                                                                                                    dragon/edf7_right:
+                                                                                                      {}
+                                                                                                    dragon/thrust7:
+                                                                                                      {}
+                                                                                                dragon/spinelink7_1:
+                                                                                                  dragon/spinelink7_2:
+                                                                                                    dragon/spinelink7_3:
+                                                                                                      dragon/spinelink7_4:
+                                                                                                        dragon/spinelink7_5:
+                                                                                                          dragon/spinelink7_6:
+                                                                                                            dragon/link8:
+                                                                                                              dragon/gimbal8_roll_module:
+                                                                                                                dragon/gimbal8_pitch_module:
+                                                                                                                  dragon/edf8_left:
+                                                                                                                    {}
+                                                                                                                  dragon/edf8_right:
+                                                                                                                    {}
+                                                                                                                  dragon/thrust8:
+                                                                                                                    {}
+                                                                                                              dragon/spinelink8_1:
+                                                                                                                dragon/spinelink8_2:
+                                                                                                                  dragon/spinelink8_3:
+                                                                                                                    dragon/spinelink8_4:
+                                                                                                                      dragon/spinelink8_5:
+                                                                                                                        dragon/spinelink8_6:
+                                                                                                                          {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
@@ -578,7 +897,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 7.903433322906494
+      Distance: 1.440822720527649
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -586,17 +905,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.8553849458694458
-        Y: 0.3047645092010498
-        Z: -0.18208102881908417
+        X: -0.156012624502182
+        Y: -0.2243993878364563
+        Z: -0.6560541391372681
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.08020248264074326
+      Pitch: -1.1547967195510864
       Target Frame: <Fixed Frame>
-      Yaw: 0.11908525228500366
+      Yaw: 3.0722732543945312
     Saved: ~
 Window Geometry:
   Displays:
@@ -604,7 +923,7 @@ Window Geometry:
   Height: 1563
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000016a0000057dfc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d0000057d000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f0000057dfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003d0000057d000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000009b80000003efc0100000002fb0000000800540069006d00650100000000000009b8000003bc00fffffffb0000000800540069006d00650100000000000004500000000000000000000007330000057d00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000016a00000582fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d00000582000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000582fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003d00000582000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000009b800000039fc0100000002fb0000000800540069006d00650100000000000009b8000003bc00fffffffb0000000800540069006d00650100000000000004500000000000000000000007330000058200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:

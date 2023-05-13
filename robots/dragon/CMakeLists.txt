@@ -63,6 +63,8 @@ add_executable(tree_perching_node src/visualize/tree_perching.cpp)
 target_link_libraries(tree_perching_node ${catkin_LIBRARIES})
 add_executable(open_door_node src/visualize/open_door.cpp)
 target_link_libraries(open_door_node ${catkin_LIBRARIES})
+add_executable(valve_node src/visualize/valve.cpp)
+target_link_libraries(valve_node ${catkin_LIBRARIES})
 
 # test
 # pre-build test code
