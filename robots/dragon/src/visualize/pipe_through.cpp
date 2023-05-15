@@ -45,7 +45,7 @@ int main(int argc, char** argv)
     marker.color.r = 0.5f;
     marker.color.g = 0.5f;
     marker.color.b = 0.5f;
-    marker.color.a = 0.7f;
+    marker.color.a = 0.25f;
     marker.scale.x = 10.0;
     marker.scale.y = 10.0;
     marker.scale.z = 10.0;
