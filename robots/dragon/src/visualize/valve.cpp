@@ -29,7 +29,7 @@ int main(int argc, char** argv)
     marker.type = visualization_msgs::Marker::MESH_RESOURCE;
     marker.action = visualization_msgs::Marker::ADD;
     marker.lifetime = ros::Duration();
-    float roll = 5*3.14/180, pitch = 35*3.14/180, yaw = -30*3.14/180;
+    float roll = -16*3.14/180, pitch = 12*3.14/180, yaw = 10*3.14/180;
     Eigen::Quaternion<float> q;
     q = Eigen::AngleAxis<float>(roll, Vector<3>::UnitX()) *
     Eigen::AngleAxis<float>(pitch, Vector<3>::UnitY()) *
@@ -38,17 +38,17 @@ int main(int argc, char** argv)
     marker.pose.orientation.y = q.y();
     marker.pose.orientation.z = q.z();
     marker.pose.orientation.w = q.w();
-    marker.pose.position.x = -0.5;
-    marker.pose.position.y = 0.05;
-    marker.pose.position.z = -1.0;
+    marker.pose.position.x = -0.5+.43-.005-.05;
+    marker.pose.position.y = 0.05-.16-.05+.005+.003;
+    marker.pose.position.z = -.4-.2-.003;
 
-    marker.color.r = 0.6f;
-    marker.color.g = 0.6f;
-    marker.color.b = 0.6f;
+    marker.color.r = 0.8f;
+    marker.color.g = 0.8f;
+    marker.color.b = 0.8f;
     marker.color.a = 1.0f;
-    marker.scale.x = 5.0f;
-    marker.scale.y = 5.0f;
-    marker.scale.z = 5.0f;
+    marker.scale.x = 2.5f;
+    marker.scale.y = 2.5f;
+    marker.scale.z = 2.5f;
 
     marker.id = 0;
     marker.mesh_resource = "package://dragon/urdf/mesh/valve.STL";
