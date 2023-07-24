@@ -41,6 +41,8 @@ namespace aerial_robot_model {
     robot_model_->updateRobotModel(*state);
 
     ROS_INFO_ONCE("initialized robot model, the mass is %f", robot_model_->getMass());
+    Eigen::Matrix3d current_inertia = robot_model_->getInertia<Eigen::Matrix3d>();
+    ROS_INFO_ONCE("initialized robot model, the inertia is {%f, %f, %f}", current_inertia(0,0), current_inertia(1,1), current_inertia(2,2)); // Ixx, Iyy, Izz
 
     geometry_msgs::TransformStamped tf = robot_model_->getCog<geometry_msgs::TransformStamped>();
     tf.header = state->header;
