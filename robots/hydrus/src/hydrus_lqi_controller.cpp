@@ -53,6 +53,9 @@ void HydrusLQIController::initialize(ros::NodeHandle nh,
   pid_msg_.yaw.p_term.resize(motor_num_);
   pid_msg_.yaw.i_term.resize(motor_num_);
   pid_msg_.yaw.d_term.resize(motor_num_);
+
+  //flag
+  is_i-term_fix_ = false;
 }
 
 HydrusLQIController::~HydrusLQIController()
@@ -182,7 +185,6 @@ void HydrusLQIController::gainGeneratorFunc()
         {
           resetGain();
         }
-
       loop_rate.sleep();
     }
 }
@@ -382,13 +384,19 @@ void HydrusLQIController::publishGain()
   for(int i = 0; i < motor_num_; ++i)
     {
       four_axis_gain_msg.roll_p_gain.push_back(roll_gains_.at(i)[0]);
-      four_axis_gain_msg.roll_i_gain.push_back(roll_gains_.at(i)[1]);
       four_axis_gain_msg.roll_d_gain.push_back(roll_gains_.at(i)[2]);
 
       four_axis_gain_msg.pitch_p_gain.push_back(pitch_gains_.at(i)[0]);
-      four_axis_gain_msg.pitch_i_gain.push_back(pitch_gains_.at(i)[1]);
       four_axis_gain_msg.pitch_d_gain.push_back(pitch_gains_.at(i)[2]);
 
+      if (is_i-term_fix_){
+	four_axis_gain_msg.roll_i_gain.push_back(0.0);
+	four_axis_gain_msg.pitch_i_gain.push_back(0.0);
+      }
+      else{
+	four_axis_gain_msg.roll_i_gain.push_back(roll_gains_.at(i)[1]);
+	four_axis_gain_msg.pitch_i_gain.push_back(pitch_gains_.at(i)[1]);
+      }
       four_axis_gain_msg.yaw_p_gain.push_back(yaw_gains_.at(i)[0]);
       four_axis_gain_msg.yaw_i_gain.push_back(yaw_gains_.at(i)[1]);
       four_axis_gain_msg.yaw_d_gain.push_back(yaw_gains_.at(i)[2]);
