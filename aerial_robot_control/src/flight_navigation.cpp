@@ -47,6 +47,7 @@ void BaseNavigator::initialize(ros::NodeHandle nh, ros::NodeHandle nhp,
 
   battery_sub_ = nh_.subscribe("battery_voltage_status", 1, &BaseNavigator::batteryCheckCallback, this);
   flight_status_ack_sub_ = nh_.subscribe("flight_config_ack", 1, &BaseNavigator::flightStatusAckCallback, this, ros::TransportHints().tcpNoDelay());
+  att_i_fix_sub_ = nh.subscribe("att_i_fix", 1, &BaseNavigator::attIFixModeCallback, this);
 
   ros::NodeHandle teleop_nh = ros::NodeHandle(nh_, "teleop_command");
   takeoff_sub_ = teleop_nh.subscribe("takeoff", 1, &BaseNavigator::takeoffCallback, this);

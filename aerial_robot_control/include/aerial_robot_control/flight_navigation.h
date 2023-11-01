@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <aerial_robot_estimation/sensor/base_plugin.h>
@@ -436,6 +437,11 @@ namespace aerial_robot_navigation
       setTargetPosZ(estimator_->getLandingHeight());
 
       ROS_INFO("Halt state");
+    }
+
+    void attIFixModeCallback(const std::msgs::EmptyConstPtr & msg)
+    {
+      ROS_INFO("I-term of attitude is fixed!")
     }
 
     void forceLandingCallback(const std_msgs::EmptyConstPtr & msg)
