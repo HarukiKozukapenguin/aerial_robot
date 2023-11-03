@@ -47,7 +47,7 @@
 #include <spinal/RollPitchYawTerms.h>
 #include <ros/ros.h>
 #include <thread>
-
+#include <std_msgs/Empty.h>
 namespace aerial_robot_control
 {
   class HydrusLQIController: public PoseLinearController
@@ -93,6 +93,7 @@ namespace aerial_robot_control
     std::vector<double> r_; // matrix R
 
     std::vector<Eigen::Vector3d> pitch_gains_, roll_gains_, yaw_gains_, z_gains_;
+    bool is_iterm_fix_;
 
     //private functions
     void resetGain() { K_ = Eigen::MatrixXd(); }

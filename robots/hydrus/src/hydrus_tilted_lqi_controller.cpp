@@ -18,6 +18,12 @@ void HydrusTiltedLQIController::initialize(ros::NodeHandle nh,
   pid_msg_.z.d_term.resize(1);
   z_limit_ = pid_controllers_.at(Z).getLimitSum();
   pid_controllers_.at(Z).setLimitSum(1e6); // do not clamp the sum of PID terms for z axis
+  att_i_fix_sub_ = nh.subscribe("att_i_fix", 1, &HydrusTiltedLQIController::attIFixModeCallback, this);
+}
+
+void HydrusTiltedLQIController::attIFixModeCallback(const std_msgs::EmptyConstPtr & msg)
+{
+  is_iterm_fix_ = true;
 }
 
 void HydrusTiltedLQIController::controlCore()

@@ -55,7 +55,7 @@ void HydrusLQIController::initialize(ros::NodeHandle nh,
   pid_msg_.yaw.d_term.resize(motor_num_);
 
   //flag
-  is_i-term_fix_ = false;
+  is_iterm_fix_ = false;
 }
 
 HydrusLQIController::~HydrusLQIController()
@@ -389,7 +389,7 @@ void HydrusLQIController::publishGain()
       four_axis_gain_msg.pitch_p_gain.push_back(pitch_gains_.at(i)[0]);
       four_axis_gain_msg.pitch_d_gain.push_back(pitch_gains_.at(i)[2]);
 
-      if (is_i-term_fix_){
+      if (is_iterm_fix_){
 	four_axis_gain_msg.roll_i_gain.push_back(0.0);
 	four_axis_gain_msg.pitch_i_gain.push_back(0.0);
       }

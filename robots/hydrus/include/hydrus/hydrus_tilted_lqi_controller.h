@@ -58,13 +58,14 @@ namespace aerial_robot_control
 
     double trans_constraint_weight_;
     double att_control_weight_;
-
     double z_limit_;
+    ros::Subscriber att_i_fix_sub_;
 
     void controlCore() override;
     bool optimalGain() override;
     void publishGain() override;
     void rosParamInit() override;
+    void attIFixModeCallback(const std_msgs::EmptyConstPtr & msg);
 
   };
 };
