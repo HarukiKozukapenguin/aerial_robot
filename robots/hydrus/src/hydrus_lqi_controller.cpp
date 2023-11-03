@@ -384,19 +384,13 @@ void HydrusLQIController::publishGain()
   for(int i = 0; i < motor_num_; ++i)
     {
       four_axis_gain_msg.roll_p_gain.push_back(roll_gains_.at(i)[0]);
+      four_axis_gain_msg.roll_i_gain.push_back(roll_gains_.at(i)[1]);
       four_axis_gain_msg.roll_d_gain.push_back(roll_gains_.at(i)[2]);
 
       four_axis_gain_msg.pitch_p_gain.push_back(pitch_gains_.at(i)[0]);
+      four_axis_gain_msg.pitch_i_gain.push_back(pitch_gains_.at(i)[1]);
       four_axis_gain_msg.pitch_d_gain.push_back(pitch_gains_.at(i)[2]);
 
-      if (is_iterm_fix_){
-	four_axis_gain_msg.roll_i_gain.push_back(0.0);
-	four_axis_gain_msg.pitch_i_gain.push_back(0.0);
-      }
-      else{
-	four_axis_gain_msg.roll_i_gain.push_back(roll_gains_.at(i)[1]);
-	four_axis_gain_msg.pitch_i_gain.push_back(pitch_gains_.at(i)[1]);
-      }
       four_axis_gain_msg.yaw_p_gain.push_back(yaw_gains_.at(i)[0]);
       four_axis_gain_msg.yaw_i_gain.push_back(yaw_gains_.at(i)[1]);
       four_axis_gain_msg.yaw_d_gain.push_back(yaw_gains_.at(i)[2]);
@@ -407,13 +401,17 @@ void HydrusLQIController::publishGain()
 
       /* to flight controller via rosserial scaling by 1000 */
       rpy_gain_msg.motors[i].roll_p = roll_gains_.at(i)[0] * 1000;
-      rpy_gain_msg.motors[i].roll_i = roll_gains_.at(i)[1] * 1000;
       rpy_gain_msg.motors[i].roll_d = roll_gains_.at(i)[2] * 1000;
 
       rpy_gain_msg.motors[i].pitch_p = pitch_gains_.at(i)[0] * 1000;
-      rpy_gain_msg.motors[i].pitch_i = pitch_gains_.at(i)[1] * 1000;
       rpy_gain_msg.motors[i].pitch_d = pitch_gains_.at(i)[2] * 1000;
-
+      if (is_iterm_fix_){
+      rpy_gain_msg.motors[i].roll_i = 0.0;
+      rpy_gain_msg.motors[i].pitch_i = 0.0;
+      } else{
+      rpy_gain_msg.motors[i].roll_i = roll_gains_.at(i)[1] * 1000;
+      rpy_gain_msg.motors[i].pitch_i = pitch_gains_.at(i)[1] * 1000;
+      }
       rpy_gain_msg.motors[i].yaw_d = yaw_gains_.at(i)[2] * 1000;
 
       /* the p matrix pseudo inverse and inertia */
