@@ -30,7 +30,7 @@ bool operator>(const TreeHandlePtr& left, const TreeHandlePtr& right)
 TreeDataBase::TreeDataBase(ros::NodeHandle nh, ros::NodeHandle nhp):nh_(nh), nhp_(nhp)
 {
   trees_.resize(0);
-  nhp_.param("tree_margin_radius", tree_margin_radius_, 1.0); // 1.0[m]
+  nhp_.param("tree_margin_radius", tree_margin_radius_, 0.5); // 1.0[m]
   nhp_.param("valid_num", valid_num_, 7);
   nhp_.param("verbose", verbose_, false);
   nhp_.param("visualization_marker_topic_name", visualization_marker_topic_name_, string("visualization_marker"));
