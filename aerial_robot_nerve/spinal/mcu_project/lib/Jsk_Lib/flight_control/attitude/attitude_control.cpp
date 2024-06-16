@@ -655,7 +655,31 @@ void AttitudeController::maxYawGainIndex()
 
 void AttitudeController::pwmTestCallback(const spinal::PwmTest& pwm_msg)
 {
-#ifndef SIMULATION  
+#ifdef SIMULATION
+  uint32_t motor_index_length = pwm_msg.motor_index.size();
+
+  if(motor_index_length && !pwm_test_flag_)
+    {
+      pwm_test_flag_ = true;
+      ROS_WARN("Enter pwm test mode");
+    }
+  else if(!motor_index_length && pwm_test_flag_)
+    {
+      pwm_test_flag_ = false;
+      ROS_WARN("Escape from pwm test mode");
+      return;
+    }
+   /*Individual test mode*/
+  if(pwm_msg.motor_index.size() != pwm_msg.pwms.size())
+   {
+     ROS_ERROR("The number of index does not match the number of pwms.");
+     return;
+   }
+  for(int i = 0; i < motor_index_length; i++){
+    int motor_index = pwm_msg.motor_index[i];
+    pwm_test_value_[motor_index] = pwm_msg.pwms[i];
+  }
+#else
   if(pwm_msg.pwms_length && !pwm_test_flag_)
     {
       pwm_test_flag_ = true;
@@ -834,6 +858,9 @@ void AttitudeController::pwmConversion()
       for(int i = 0; i < MAX_MOTOR_NUMBER; i++)
         {
           target_pwm_[i] = pwm_test_value_[i];
+#ifdef SIMULATION
+	  pwms_msg_.motor_value[i] = (target_pwm_[i] * 2000);
+#endif
         }
       return;
     }
