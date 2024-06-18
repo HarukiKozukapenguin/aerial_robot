@@ -48,6 +48,8 @@ controller:
     r2: 1.0
     r3: 1.0
     r4: 1.0
+    r5: 1.0
+    r6: 1.0
 
     trans_constraint_weight: 100
     att_control_weight: 1
