@@ -55,7 +55,7 @@ if __name__=="__main__":
         tree_squared_errors_sum = [0] * 3
         pose_cnt = 0
 
-        rospy.Subscriber("visualization_marker", MarkerArray, cb)
+        rospy.Subscriber("/multirotor/visualization_marker", MarkerArray, cb)
 
         rospy.init_node('rms_error')
 
