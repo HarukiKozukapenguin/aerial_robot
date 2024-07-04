@@ -74,7 +74,7 @@ if __name__=="__main__":
                                 if pose_cnt > 0:
                                         rms = [math.sqrt(i / pose_cnt) for i in tree_squared_errors_sum]
 
-                                rospy.loginfo("RMS of pos errors: [%f, %f, %f], att errors: [%f, %f, %f]", rms[0], rms[1], rms[2], rms[3], rms[4], rms[5])
+                                rospy.loginfo("RMS of tree_pos errors: [%f, %f], radius_errors: [%f]", rms[0], rms[1], rms[2])
 
                                 start_flag = False
 
