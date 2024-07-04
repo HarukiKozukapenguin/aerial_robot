@@ -28,9 +28,9 @@ def cb(data):
                 global tree_squared_errors_sum
                 pose_cnt = pose_cnt + 1
 
-                error_tree_pos_x = data[marker_id].pose.position.x - true_tree_pos_x
-                error_tree_pos_y = data[marker_id].pose.position.y - true_tree_pos_y
-                error_tree_radius = float(data[marker_id].text) - true_tree_radius
+                error_tree_pos_x = data.markers[marker_id].pose.position.x - true_tree_pos_x
+                error_tree_pos_y = data.markers[marker_id].pose.position.y - true_tree_pos_y
+                error_tree_radius = float(data.markers[marker_id].text) - true_tree_radius
 
                 tree_squared_errors_sum[0] = tree_squared_errors_sum[0] + error_tree_pos_x * error_tree_pos_x
                 tree_squared_errors_sum[1] = tree_squared_errors_sum[1] + error_tree_pos_y * error_tree_pos_y
