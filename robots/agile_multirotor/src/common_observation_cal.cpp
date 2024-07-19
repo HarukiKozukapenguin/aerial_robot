@@ -56,6 +56,9 @@ ObstacleCalculator::ObstacleCalculator(ros::NodeHandle nh, ros::NodeHandle pnh)
                             &ObstacleCalculator::VisualizationMarkerCallback, this);
     // record_sub_ = nh_.subscribe("/" + quad_name + "/obstacle_record", 1,
     //                         &ObstacleCalculator::RecordMarkerCallback, this);
+    marker_estimation_pub_ = nh_.advertise<visualization_msgs::MarkerArray>(
+      "/" + quad_name + "/debug/estimated_obstacle_position", 1);
+
     tree_pos_ << 0.0,0.0,0.0;
     filtered_vel_ << 0.0,0.0,0.0;
   }
@@ -92,7 +95,7 @@ void ObstacleCalculator::SetGazeboObstacleCallback(const gazebo_msgs::ModelState
 void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::MarkerArray::ConstPtr &msg){
 
   // if (record_marker_){
-
+  visualization_msgs::MarkerArray marker_array_msg;
   positions_.clear();
   radius_list_.clear();
 
@@ -119,9 +122,13 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
       radius_list_.push_back(scale.x/2);
       have_hokuyo_data_ = true;
       // record_marker_ = false;
+      visualization_msgs::Marker marker;
+      marker.pose.position.x = tree_pos_estimate(0);
+      marker.pose.position.y = tree_pos_estimate(1);
 
+      marker_array_msg.markers.push_back(marker);
     }
-  // }
+    marker_estimation_pub_.publish(marker_array_msg);
 }
 
 // void ObstacleCalculator::RecordMarkerCallback(const std_msgs::Empty::ConstPtr &msg){
