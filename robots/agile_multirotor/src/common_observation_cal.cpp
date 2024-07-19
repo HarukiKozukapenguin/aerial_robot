@@ -58,6 +58,9 @@ ObstacleCalculator::ObstacleCalculator(ros::NodeHandle nh, ros::NodeHandle pnh)
     //                         &ObstacleCalculator::RecordMarkerCallback, this);
     marker_estimation_pub_ = nh_.advertise<visualization_msgs::MarkerArray>(
       "/" + quad_name + "/debug/estimated_obstacle_position", 1);
+    tree_pos_vec_.clear();
+    filtered_vel_vec_.clear();
+    tree_time_vec_.clear();
 
   }
 
@@ -90,6 +93,12 @@ void ObstacleCalculator::SetGazeboObstacleCallback(const gazebo_msgs::ModelState
   gazebo_pos_y_ = msg->pose.position.y;
 }
 
+void printEigenVector(const Eigen::Vector3d& vec) {
+    std::stringstream ss;
+    ss << vec.transpose();  // 行ベクトルとして出力
+    ROS_INFO("Vector: [%s]", ss.str().c_str());
+}
+
 void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::MarkerArray::ConstPtr &msg){
 
   // if (record_marker_){
@@ -97,25 +106,33 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
   positions_.clear();
   radius_list_.clear();
 
-  size_t marker_size = msg->markers.size();
+  size_t marker_size = msg->markers.size()/2;
+  ROS_INFO("marker_size: %d", marker_size);
   if (tree_pos_vec_.size() != marker_size){
     tree_pos_vec_.resize(marker_size);
     filtered_vel_vec_.resize(marker_size);
     tree_time_vec_.resize(marker_size);
   }
    
-  for (size_t i = 0; i < msg->markers.size(); ++i){
-      const visualization_msgs::Marker &tree_data = msg->markers[i];
-      if (tree_data.ns=="tree_diameter") continue;
+  for (size_t i = 0; i < marker_size; ++i){
+      ROS_INFO("idx: %ld", i);
+      const visualization_msgs::Marker &tree_data = msg->markers[2*i];
       Eigen::Vector3d &tree_pos = tree_pos_vec_[i];
+      printEigenVector(tree_pos);
       Eigen::Vector3d &filtered_vel = filtered_vel_vec_[i];
       ros::Time &tree_time = tree_time_vec_[i];
+      printEigenVector(filtered_vel);
       
       geometry_msgs::Point position = tree_data.pose.position;
       Eigen::Vector3d tree_position(position.x, position.y, 0);
       double delta_pos_x = position.x - tree_pos(0);
       double delta_pos_y = position.y - tree_pos(1);
+      if (abs(delta_pos_x) > 100.0) delta_pos_x = 0.0;
+      if (abs(delta_pos_y) > 100.0) delta_pos_y = 0.0;
+      ROS_INFO("delta_pos_x: %lf ,delta_pos_y: %lf", delta_pos_x, delta_pos_y);
       double delta_t = (tree_data.header.stamp - tree_time).toSec();
+      if (delta_t > 0.01){
+      ROS_INFO("delta_t: %lf", delta_t);
       Eigen::Vector3d tree_step_vel(delta_pos_x, delta_pos_y, 0);
       tree_step_vel /= delta_t;
       filtered_vel = tree_estimate_gamma_ * filtered_vel + (1 - tree_estimate_gamma_) * tree_step_vel;
@@ -137,10 +154,13 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
       marker.pose.position.y = tree_pos_estimate(1);
 
       marker_array_msg.markers.push_back(marker);
+      }else{
+    ROS_WARN("delta_t is zero or negative, skipping update.");
+      }
   }
     marker_estimation_pub_.publish(marker_array_msg);
+// }
 }
-
 // void ObstacleCalculator::RecordMarkerCallback(const std_msgs::Empty::ConstPtr &msg){
 //   record_marker_ = true;
 // }
