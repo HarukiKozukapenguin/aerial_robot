@@ -13,6 +13,7 @@ ObstacleCalculator::ObstacleCalculator(ros::NodeHandle nh, ros::NodeHandle pnh)
   pnh_.getParam("vel_calc_boundary", vel_calc_boundary_);
   pnh_.getParam("body_r", body_r_);
   pnh_.getParam("policy_start_delay", policy_start_delay_);
+  pnh_.getParam("obstacle_estimate_margin", obstacle_estimate_margin_);
 
   //   file = file + ".csv";
   if (!from_hokuyo_){
@@ -100,7 +101,7 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
       positions_.push_back(tree_pos);
 
       geometry_msgs::Vector3 scale = tree_data.scale;
-      radius_list_.push_back(scale.x/2);
+      radius_list_.push_back(scale.x/2 + obstacle_estimate_margin_);
       have_hokuyo_data_ = true;
       // record_marker_ = false;
     }
