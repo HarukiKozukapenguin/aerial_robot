@@ -13,6 +13,8 @@ ObstacleCalculator::ObstacleCalculator(ros::NodeHandle nh, ros::NodeHandle pnh)
   pnh_.getParam("vel_calc_boundary", vel_calc_boundary_);
   pnh_.getParam("body_r", body_r_);
   pnh_.getParam("policy_start_delay", policy_start_delay_);
+  pnh_.getParam("tree_estimate_gamma", tree_estimate_gamma_);
+  pnh_.getParam("estimate_delay", estimate_delay_);
 
   //   file = file + ".csv";
   if (!from_hokuyo_){
@@ -54,6 +56,8 @@ ObstacleCalculator::ObstacleCalculator(ros::NodeHandle nh, ros::NodeHandle pnh)
                             &ObstacleCalculator::VisualizationMarkerCallback, this);
     // record_sub_ = nh_.subscribe("/" + quad_name + "/obstacle_record", 1,
     //                         &ObstacleCalculator::RecordMarkerCallback, this);
+    tree_pos_ << 0.0,0.0,0.0;
+    filtered_vel_ << 0.0,0.0;
   }
 
   odom_sub_ = nh_.subscribe("/" + quad_name + "/uav/cog/odom", 1,
@@ -92,12 +96,23 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
   radius_list_.clear();
     for (const visualization_msgs::Marker &tree_data : msg->markers) {
       if (tree_data.ns=="tree_diameter") continue;
-      Eigen::Vector3d tree_pos;
       geometry_msgs::Point position = tree_data.pose.position;
-      tree_pos(0) = position.x; //world coodinate
-      tree_pos(1) = position.y; //world coodinate
-      tree_pos(2) = 0;
-      positions_.push_back(tree_pos);
+      Eigen::Vector2d tree_position(position.x, position.y);
+      double delta_pos_x = position.x - tree_pos_(0);
+      double delta_pos_y = position.y - tree_pos_(1);
+      double delta_t = (tree_data.header.stamp - tree_time_).toSec();
+      Eigen::Vector2d tree_step_vel(delta_pos_x, delta_pos_y);
+      tree_step_vel /= delta_t;
+      filtered_vel_ = tree_estimate_gamma_ * filtered_vel_ + (1 - tree_estimate_gamma_) * tree_step_vel;
+      Eigen::Vector2d estimate_pos = filtered_vel_ * estimate_delay_ + tree_position;
+
+      // update member variable
+      tree_pos_(0) = tree_position(0); //world coodinate
+      tree_pos_(1) = tree_position(1); //world coodinate
+      tree_pos_(2) = 0;
+      tree_time_ = tree_data.header.stamp;
+
+      positions_.push_back(tree_pos_);
 
       geometry_msgs::Vector3 scale = tree_data.scale;
       radius_list_.push_back(scale.x/2);
