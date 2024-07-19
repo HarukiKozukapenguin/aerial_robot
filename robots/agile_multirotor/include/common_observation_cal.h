@@ -101,8 +101,8 @@ private:
   float obstacle_moving_time_;
   size_t gazebo_obstacle_id_;
   float gazebo_pos_x_, gazebo_pos_y_;
-  Eigen::Vector3d tree_pos_, filtered_vel_;
-  ros::Time tree_time_;
+  std::vector<Eigen::Vector3d> tree_pos_vec_, filtered_vel_vec_;
+  std::vector<ros::Time> tree_time_vec_;
   double tree_estimate_gamma_, estimate_delay_;
 
   std::vector<std::string> split(std::string &input, char delimiter);
