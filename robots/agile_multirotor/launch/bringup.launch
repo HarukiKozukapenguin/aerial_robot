@@ -145,4 +145,9 @@
     <arg name="sensor" value="livox" if= "$(eval arg('estimate_mode')==0)"/>
   </include>
 
+  ####### GUI for battery reminder  ############
+  <node pkg="rosserial_python" type="serial_node.py" name="serial_node" ns="$(arg robot_ns)" if="$(eval not arg('simulation') and arg('real_machine'))">
+    <param name="~port" value="/dev/ttyACM0" />
+  </node>
+
 </launch>
