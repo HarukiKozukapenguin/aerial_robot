@@ -34,7 +34,8 @@ namespace aerial_robot_navigation
   enum control_frame
     {
       WORLD_FRAME, /* global frame, e.g. ENU, mocap */
-      LOCAL_FRAME /* head frame which is identical with imu head direction */
+      LOCAL_FRAME, /* head frame which is identical with imu head direction */
+      ROOM_BY_CAM_FRAME /* mocap direction when odom is estimated by livox */
     };
 
   // navi state

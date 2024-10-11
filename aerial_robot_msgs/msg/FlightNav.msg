@@ -9,6 +9,7 @@ uint8 X_ACC_Y_POS_MODE = 7
 
 uint8 WORLD_FRAME = 0
 uint8 LOCAL_FRAME = 1
+uint8 ROOM_BY_CAM_FRAME = 2
 
 uint8 BASELINK = 0
 uint8 COG = 1

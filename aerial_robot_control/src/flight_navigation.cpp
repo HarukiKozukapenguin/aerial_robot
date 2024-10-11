@@ -226,7 +226,27 @@ void BaseNavigator::naviCallback(const aerial_robot_msgs::FlightNavConstPtr & ms
     {
     case aerial_robot_msgs::FlightNav::POS_MODE:
       {
-        tf::Vector3 target_cog_pos(msg->target_pos_x, msg->target_pos_y, 0);
+	tf::Vector3 target_cog_pos;
+	switch(msg->control_frame)
+          {
+          case WORLD_FRAME:
+            {
+	      target_cog_pos.setValue(msg->target_pos_x, msg->target_pos_y, 0);
+              break;
+            }
+          case LOCAL_FRAME:
+            {
+              double yaw_angle = estimator_->getState(State::YAW_COG, estimate_mode_)[0];
+              target_cog_pos = frameConversion(tf::Vector3(msg->target_pos_x, msg->target_pos_y, 0), yaw_angle);
+              break;
+            }
+	  case ROOM_BY_CAM_FRAME:
+            {
+              double yaw_angle = 2.45;
+              target_cog_pos = frameConversion(tf::Vector3(msg->target_pos_x, msg->target_pos_y, 0), yaw_angle);
+              break;
+            }
+	  }
 
         tf::Vector3 target_delta = getTargetPos() - target_cog_pos;
         target_delta.setZ(0);
@@ -271,6 +291,15 @@ void BaseNavigator::naviCallback(const aerial_robot_msgs::FlightNavConstPtr & ms
               setTargetVelY(target_vel.y());
               break;
             }
+	  case ROOM_BY_CAM_FRAME:
+            {
+              double yaw_angle = 2.45;
+              tf::Vector3 target_vel = frameConversion(tf::Vector3(msg->target_vel_x, msg->target_vel_y, 0), yaw_angle);
+              setTargetVelX(target_vel.x());
+              setTargetVelY(target_vel.y());
+              break;
+            }
+
           default:
             {
               break;
@@ -308,6 +337,14 @@ void BaseNavigator::naviCallback(const aerial_robot_msgs::FlightNavConstPtr & ms
           case LOCAL_FRAME:
             {
               double yaw_angle = estimator_->getState(State::YAW_COG, estimate_mode_)[0];
+              tf::Vector3 target_acc = frameConversion(tf::Vector3(msg->target_acc_x, msg->target_acc_y, 0), yaw_angle);
+              setTargetAccX(target_acc.x());
+              setTargetAccY(target_acc.y());
+              break;
+            }
+          case ROOM_BY_CAM_FRAME:
+            {
+              double yaw_angle = 2.45;
               tf::Vector3 target_acc = frameConversion(tf::Vector3(msg->target_acc_x, msg->target_acc_y, 0), yaw_angle);
               setTargetAccX(target_acc.x());
               setTargetAccY(target_acc.y());
