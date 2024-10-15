@@ -90,10 +90,13 @@ void TreeTracking::uavOdomCallback(const nav_msgs::OdometryConstPtr& uav_msg)
     uav_odom_ = transform.getOrigin();
     uav_odom_.setZ(0);
 
+    // ROS_INFO("uav_odom_: (%f, %f)", uav_odom_.getX(), uav_odom_.getY());
+
     tf::Quaternion q = transform.getRotation();
     tfScalar r,p,y;
     tf::Matrix3x3(q).getRPY(r, p, y);
       uav_roll_ = r; uav_pitch_ = p; uav_yaw_ = y;
+      // ROS_INFO("uav_rpy_: (%f, %f, %f)", uav_roll_, uav_pitch_, uav_yaw_);
     } catch (tf::TransformException &ex) {
     ROS_ERROR("%s", ex.what());
     ros::Duration(1.0).sleep();
@@ -153,12 +156,28 @@ void TreeTracking::laserScanCallback(const sensor_msgs::LaserScanConstPtr& scan_
             }
 	  /* calc position and radius */
 	  tf::Vector3 tree_center_pos; double tree_radius, regulation;
+	  // for (size_t i = 0; i < points.size(); ++i) {
+	  //   ROS_INFO("Point %zu: X = %f, Y = %f, Z = %f", 
+          //    i, 
+          //    points[i].getX(), 
+          //    points[i].getY(), 
+          //    points[i].getZ());
+	  // }
 	  CircleDetection::circleFitting(points, tree_center_pos, tree_radius, regulation);
+	  // ROS_INFO("tree: X = %f, Y = %f, radius = %f", 
+          //  tree_center_pos.getX(), 
+          //  tree_center_pos.getY(), 
+          //  tree_radius);
 	  /* angle filter */
 	  double scan_angle_real = scan_point_num * scan_msg->angle_increment;
 	  double scan_angle_virtual = M_PI - 2 * acos(tree_radius / tree_center_pos.length());
 	  /* tree position filter */
 	  rotation.setRPY(0, 0, uav_yaw_ + urg_yaw_offset_);
+	  ROS_INFO("uav_odom_: X = %f, Y = %f, Z = %f", 
+           uav_odom_.getX(), 
+           uav_odom_.getY(), 
+           uav_odom_.getZ());
+	  ROS_INFO("yaw = %f", uav_yaw_ + urg_yaw_offset_);
 	  tf::Vector3 tree_center_global_location = uav_odom_ + rotation * tf::Vector3(tree_center_pos.x(), tree_center_pos.y(), 0);
 	  // tf::Vector3 initial_target_tree_pos = target_trees_.at(0)->getPos();
 	  // double projected_length_from_initial_target = initial_target_tree_direction_vec_.dot(tree_center_global_location - initial_target_tree_pos); 
@@ -166,6 +185,10 @@ void TreeTracking::laserScanCallback(const sensor_msgs::LaserScanConstPtr& scan_
 
 	  if (tree_radius > tree_radius_min_ && tree_radius < tree_radius_max_ && fabs((scan_angle_real - scan_angle_virtual) / scan_angle_real) < tree_scan_angle_thre_ && regulation < tree_circle_regulation_thre_)
             {
+	   ROS_INFO("tree_global_location_: X = %f, Y = %f, radius = %f", 
+           tree_center_global_location.getX(), 
+           tree_center_global_location.getY(), 
+		    tree_radius);
                target_update += tree_db_.updateSingleTree(tree_center_global_location, tree_radius, false);
             }
           else

@@ -47,7 +47,7 @@ private:
   tf::Vector3 uav_odom_;
   float uav_roll_, uav_pitch_, uav_yaw_;
   tf::TransformListener listener;
-  tf::StampedTransform transform;
+  tf::StampedTransform transform, world_transform;
 
   double tree_scan_angle_thre_;
   double tree_circle_regulation_thre_;
