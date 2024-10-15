@@ -16,6 +16,7 @@ TreeTracking::TreeTracking(ros::NodeHandle nh, ros::NodeHandle nhp):
   nhp_.param("tree_global_location_topic_name", tree_global_location_topic_name_, string("tree_global_location"));
   nhp_.param("visualization_marker_topic_name", visualization_marker_topic_name_, string("visualization_marker"));
   nhp_.param("tree_database_erase_topic_name", tree_database_erase_topic_name_, string("tree_database_erase"));
+  nhp_.param("sensor", sensor_name_, string(""));
 
   ros::TransportHints transport_hints;
   transport_hints.tcpNoDelay(true);
@@ -79,8 +80,12 @@ void TreeTracking::uavOdomCallback(const nav_msgs::OdometryConstPtr& uav_msg)
   }
   else{
     try{
-    listener.lookupTransform("/326_world", laser_scan_frame_name_, ros::Time(0), transform);
-    // listener.lookupTransform("/world", laser_scan_frame_name_, ros::Time(0), transform);
+      if (sensor_name_=="livox"){
+	listener.lookupTransform("/326_world", laser_scan_frame_name_, ros::Time(0), transform);
+      }
+      else{
+	listener.lookupTransform("/world", laser_scan_frame_name_, ros::Time(0), transform);
+      }
     // Get the translation component of the transform
     uav_odom_ = transform.getOrigin();
     uav_odom_.setZ(0);

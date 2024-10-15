@@ -39,6 +39,7 @@ private:
   string tree_global_location_topic_name_;
   string visualization_marker_topic_name_, tree_database_erase_topic_name_;
   string laser_scan_frame_name_;
+  string sensor_name_;
 
   TreeDataBase tree_db_;
   vector<TreeHandlePtr> target_trees_;

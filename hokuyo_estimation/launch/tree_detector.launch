@@ -43,6 +43,7 @@
     <param name="laser_scan_topic_name" value="scan_clustered" />
     <param name="frame_name" value="$(arg robot_ns)/laser_frame" />
     <param name="uav_odom_topic_name" value="uav/cog/odom" />
+    <param name="sensor" value="$(arg sensor)" />
   </node>
 
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find hokuyo_estimation)/config/$(arg robot_ns)/rviz_config.rviz" if="$(arg show_rviz)"/>
