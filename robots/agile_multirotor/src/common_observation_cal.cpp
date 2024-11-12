@@ -100,8 +100,11 @@ void ObstacleCalculator::SetGazeboObstacleCallback(const gazebo_msgs::ModelState
 void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::MarkerArray::ConstPtr &msg){
 
   // if (record_marker_){
+  former_position_time_ =  position_time_;
+  former_positions_ = positions_;
   positions_.clear();
   radius_list_.clear();
+  position_time_ = msg->markers[0].header.stamp;
     for (const visualization_msgs::Marker &tree_data : msg->markers) {
       if (tree_data.ns=="tree_diameter") continue;
       Eigen::Vector3d tree_pos;
@@ -110,6 +113,7 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
       tree_pos(1) = position.y; //world coodinate
       tree_pos(2) = 0;
       positions_.push_back(tree_pos);
+      
 
       geometry_msgs::Vector3 scale = tree_data.scale;
       radius_list_.push_back(scale.x/2);
@@ -205,8 +209,23 @@ void ObstacleCalculator::CalculatorCallback(
     marker_pub_.publish(marker_array_msg);
   }
   else{
+    // positions estimation from current position
+    ros::Time odom_time = msg->header.stamp;
+    double dt = (position_time_ - former_position_time_).toSec();
+    double target_dt = (odom_time - former_position_time_).toSec();
+     if (target_dt < 0 || target_dt > dt*3) {
+       ROS_WARN("Odometry timestamp is outside of available position data range.");
+       return;
+     }
+    double ratio = target_dt / dt;
+    std::vector<Eigen::Vector3d> interpolated_positions;
+    if (former_positions_.empty()) former_positions_ = positions_;
+    for (size_t i = 0; i < former_positions_.size(); ++i) {
+        Eigen::Vector3d interpolated_position = interpolatePosition(former_positions_[i], positions_[i], ratio);
+        interpolated_positions.push_back(interpolated_position);
+    }
     size_t obstacle_id = 0;
-    for (const auto &tree_pos : positions_) {
+    for (const Eigen::Vector3d &tree_pos : interpolated_positions) {
       Eigen::Vector3d converted_pos = R_T * (tree_pos - pos);
       converted_positions.push_back(converted_pos);
       Eigen::Vector2d converted_pos_2d = {(tree_pos - pos)[0], (tree_pos - pos)[1]}; //world coordinate

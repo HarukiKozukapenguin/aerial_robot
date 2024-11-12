@@ -69,7 +69,8 @@ private:
   ros::Publisher marker_pub_;
   ros::Publisher obs_min_dist_pub_;
 
-  std::vector<Eigen::Vector3d> positions_, velocities_;
+  std::vector<Eigen::Vector3d> positions_, former_positions_, velocities_;
+  ros::Time position_time_, former_position_time_;
   std::vector<Scalar> radius_list_;
   int call_;
 
@@ -78,6 +79,9 @@ private:
 
   std::vector<Eigen::Vector2d> C_list_;
   std::vector<Eigen::Vector2d> R_list_;
+  Eigen::Vector3d interpolatePosition(const Eigen::Vector3d& start, const Eigen::Vector3d& end, double ratio) {
+        return start + ratio * (end - start);
+    }
   Vector<Corner_Num> C_vel_obs_distance_;
   Vector<Rotor_Num> R_vel_obs_distance_;
 
