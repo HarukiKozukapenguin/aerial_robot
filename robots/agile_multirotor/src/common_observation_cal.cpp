@@ -219,7 +219,7 @@ void ObstacleCalculator::CalculatorCallback(
      }
     double ratio = target_dt / dt;
     std::vector<Eigen::Vector3d> interpolated_positions;
-    if (former_positions_.empty()) former_positions_ = positions_;
+    if (former_positions_.size() != positions_.size()) former_positions_ = positions_;
     for (size_t i = 0; i < former_positions_.size(); ++i) {
         Eigen::Vector3d interpolated_position = interpolatePosition(former_positions_[i], positions_[i], ratio);
         interpolated_positions.push_back(interpolated_position);
