@@ -64,6 +64,8 @@ ObstacleCalculator::ObstacleCalculator(ros::NodeHandle nh, ros::NodeHandle pnh)
 
     marker_sub_ = nh_.subscribe("/" + quad_name + "/visualization_marker", 1,
                             &ObstacleCalculator::VisualizationMarkerCallback, this);
+    interpolated_position_pub_ = nh_.advertise<visualization_msgs::MarkerArray>(
+      "/" + quad_name + "/debug/interpolated_positions", 1);
     // record_sub_ = nh_.subscribe("/" + quad_name + "/obstacle_record", 1,
     //                         &ObstacleCalculator::RecordMarkerCallback, this);
   }
@@ -224,6 +226,40 @@ void ObstacleCalculator::CalculatorCallback(
         Eigen::Vector3d interpolated_position = interpolatePosition(former_positions_[i], positions_[i], ratio);
         interpolated_positions.push_back(interpolated_position);
     }
+
+    visualization_msgs::MarkerArray interpolated_position_array;
+    for (size_t i = 0; i < interpolated_positions.size(); ++i) {
+        const auto& pos = interpolated_positions[i];
+        visualization_msgs::Marker marker;
+
+        marker.header.stamp = ros::Time::now();
+        marker.header.frame_id = "world";  // Adjust the frame as needed
+
+        marker.ns = "interpolated_positions";
+        marker.id = i; // Unique ID for each marker
+        marker.type = visualization_msgs::Marker::SPHERE; // Set marker type
+        marker.action = visualization_msgs::Marker::ADD;
+
+        // Set the position
+        marker.pose.position.x = pos.x();
+        marker.pose.position.y = pos.y();
+        marker.pose.position.z = pos.z();
+
+        // Set marker scale (adjust as needed)
+        marker.scale.x = 0.1;
+        marker.scale.y = 0.1;
+        marker.scale.z = 0.1;
+
+        // Set marker color (adjust as needed)
+        marker.color.a = 1.0; // Alpha (opacity)
+        marker.color.r = 0.0;
+        marker.color.g = 1.0;
+        marker.color.b = 0.0;
+
+        interpolated_position_array.markers.push_back(marker);
+    }
+    interpolated_position_pub_.publish(interpolated_position_array);
+
     size_t obstacle_id = 0;
     for (const Eigen::Vector3d &tree_pos : interpolated_positions) {
       Eigen::Vector3d converted_pos = R_T * (tree_pos - pos);

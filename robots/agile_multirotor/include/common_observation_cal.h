@@ -65,6 +65,7 @@ private:
   ros::Subscriber odom_sub_;
   ros::Subscriber marker_sub_;
   ros::Subscriber record_sub_, start_obstacle_sub_, gazebo_obstacle_pos_sub_;
+  ros::Publisher interpolated_position_pub_;
   ros::Publisher obs_pub_;
   ros::Publisher marker_pub_;
   ros::Publisher obs_min_dist_pub_;
