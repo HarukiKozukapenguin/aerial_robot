@@ -107,6 +107,7 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
   positions_.clear();
   radius_list_.clear();
   if (positions_.size() != 0) position_time_ = msg->markers[0].header.stamp;
+  ROS_INFO("position_time_ in VisualizationMarkerCallback: ", position_time_);
     for (const visualization_msgs::Marker &tree_data : msg->markers) {
       if (tree_data.ns=="tree_diameter") continue;
       Eigen::Vector3d tree_pos;
@@ -216,7 +217,7 @@ void ObstacleCalculator::CalculatorCallback(
     double dt = (position_time_ - former_position_time_).toSec();
     double target_dt = (odom_time - former_position_time_).toSec();
      if (target_dt < 0 || target_dt > dt*3) {
-       ROS_WARN("Odometry timestamp is outside of available position data range.");
+       ROS_WARN("Odometry timestamp is outside of available position data range. target_dt: %lf, dt: %lf",target_dt, dt);
        return;
      }
      target_dt += 0.050; // delay compensation of topic communication
