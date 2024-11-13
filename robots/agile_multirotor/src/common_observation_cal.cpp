@@ -219,6 +219,7 @@ void ObstacleCalculator::CalculatorCallback(
        ROS_WARN("Odometry timestamp is outside of available position data range.");
        return;
      }
+     target_dt += 0.050; // delay compensation of topic communication
     double ratio = target_dt / dt;
     std::vector<Eigen::Vector3d> interpolated_positions;
     if (former_positions_.size() != positions_.size()) former_positions_ = positions_;
