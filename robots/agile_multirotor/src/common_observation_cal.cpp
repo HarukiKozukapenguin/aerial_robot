@@ -106,7 +106,7 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
   former_positions_ = positions_;
   positions_.clear();
   radius_list_.clear();
-  position_time_ = msg->markers[0].header.stamp;
+  if (positions_.size() != 0) position_time_ = msg->markers[0].header.stamp;
     for (const visualization_msgs::Marker &tree_data : msg->markers) {
       if (tree_data.ns=="tree_diameter") continue;
       Eigen::Vector3d tree_pos;
@@ -222,7 +222,7 @@ void ObstacleCalculator::CalculatorCallback(
      target_dt += 0.050; // delay compensation of topic communication
     double ratio = target_dt / dt;
     std::vector<Eigen::Vector3d> interpolated_positions;
-    if (former_positions_.size() != positions_.size()) former_positions_ = positions_;
+    if (former_positions_.size() != positions_.size() || former_positions_.size() == 0) former_positions_ = positions_;
     for (size_t i = 0; i < former_positions_.size(); ++i) {
         Eigen::Vector3d interpolated_position = interpolatePosition(former_positions_[i], positions_[i], ratio);
         interpolated_positions.push_back(interpolated_position);
@@ -371,7 +371,7 @@ Scalar ObstacleCalculator::getClosestDistance(
   Scalar y_n = calc_dist_from_wall(-1, Cell, wall_y_pos_, poll_y, quad_wall_pos[1]); //[m]
   Scalar x_p = calc_dist_from_wall(+1, Cell, wall_x_pos_, poll_x, quad_wall_pos[0]); //[m]
   Scalar rmin = std::min(std::min(std::min(y_p, y_n),x_p), max_detection_range_); //[m] from wall
-  for (int i = 0; i < positions_.size(); i++) {
+  for (int i = 0; i < converted_positions.size(); i++) {
     Eigen::Vector3d pos = converted_positions[i];
     Scalar radius = radius_list_[i] + body_r_;
     Eigen::Vector3d alpha = Cell.cross(poll_z);
