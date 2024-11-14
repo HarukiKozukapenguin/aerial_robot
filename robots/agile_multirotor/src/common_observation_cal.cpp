@@ -106,8 +106,7 @@ void ObstacleCalculator::VisualizationMarkerCallback(const visualization_msgs::M
   former_positions_ = positions_;
   positions_.clear();
   radius_list_.clear();
-  if (positions_.size() != 0) position_time_ = msg->markers[0].header.stamp;
-  ROS_INFO("position_time_ in VisualizationMarkerCallback: ", position_time_);
+  if (msg->markers.size() != 0) position_time_ = msg->markers[0].header.stamp;
     for (const visualization_msgs::Marker &tree_data : msg->markers) {
       if (tree_data.ns=="tree_diameter") continue;
       Eigen::Vector3d tree_pos;
