@@ -19,6 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   tf
+  costmap_2d
 )
 
 ## System dependencies are found with CMake's conventions
@@ -30,7 +31,7 @@ message(WARNING "OPENCV ${OpenCV_VERSION} FOUND")
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp
+  CATKIN_DEPENDS roscpp costmap_2d
   LIBRARIES tree_tracking
 )
 
@@ -58,6 +59,8 @@ target_link_libraries(tree_tracking ${catkin_LIBRARIES})
 add_executable(tree_tracking_node src/tree_tracking_node.cpp)
 target_link_libraries (tree_tracking_node ${catkin_LIBRARIES} tree_tracking)
 
+add_executable(costmap_test_node src/costmap_test.cpp)
+target_link_libraries(costmap_test_node ${catkin_LIBRARIES})
 #############
 ## Install ##
 #############
