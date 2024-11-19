@@ -1,0 +1,8 @@
+<launch>
+  <node name="local_costmap_node" pkg="costmap_2d" type="costmap_2d_node" output="screen">
+    <!-- <param name="global_frame" value="world"/> -->
+    <!-- <param name="global_costmap/robot_base_frame" value="multirotor/root" /> -->
+    <rosparam file="$(find hokuyo_estimation)/config/costmap_common_params.yaml" command="load" />
+    <rosparam file="$(find hokuyo_estimation)/config/local_costmap_params.yaml" command="load" />
+  </node>
+</launch>

@@ -1,0 +1,7 @@
+obstacle_range: 4.0
+raytrace_range: 3.0
+footprint: [[-0.3, -0.3], [-0.3, 0.3], [0.3, 0.3], [0.3, -0.3]]
+inflation_radius: 0.5
+
+observation_sources: scan
+scan: {sensor_frame: multirotor/laser_frame_level, data_type: LaserScan, topic: scan, marking: true, clearing: true}

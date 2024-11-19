@@ -1,0 +1,559 @@
+local_costmap_node:
+  footprint:
+  - - -0.3
+    - -0.3
+  - - -0.3
+    - 0.3
+  - - 0.3
+    - 0.3
+  - - 0.3
+    - -0.3
+  inflation_radius: 0.5
+  local_costmap:
+    global_frame: world
+    height: 10.0
+    observation_sources: scan
+    publish_frequency: 2.0
+    resolution: 0.05
+    robot_base_frame: multirotor/root
+    rolling_window: true
+    static_map: false
+    update_frequency: 5.0
+    width: 10.0
+  observation_sources: scan
+  obstacle_range: 4.0
+  raytrace_range: 3.0
+  scan:
+    clearing: true
+    data_type: LaserScan
+    marking: true
+    sensor_frame: laser_frame
+    topic: /multirotor/scan
+multirotor:
+  aerial_robot_base_node:
+    main_rate: 40
+    nav_exec: true
+    param_verbose: false
+    tf_prefix: multirotor
+  aerial_robot_control_name: aerial_robot_control/hydrus_tilted_lqi_controller
+  bat_info:
+    bat_cell: 4
+    bat_resistance: 0.02
+    hovering_current: 30
+    low_voltage_thre: 10
+  cmdline_file_path: livox_test.lvx
+  cmdline_str: '100000000000000'
+  common:
+    imu_topic: livox/imu
+    lid_topic: livox/lidar
+    time_offset_lidar_to_imu: 0.0
+    time_sync_en: false
+  common_observation_conversion:
+    body_r: 0.3
+    cfg_path: /home/leus/ros/jsk_aerial_robot_ws/src/jsk_aerial_robot/robots/agile_multirotor/config/obstacle_world/dynamic/multirotor/real_RP_271_hokuyo_v1.1.3.csv
+    headless: true
+    hokuyo: true
+    policy_start_delay: 1.0
+    print_yaw: false
+    robot_ns: multirotor
+    shift_x: -2.0
+    shift_y: -0.25
+    vel_calc_boundary: 0.3
+  controller:
+    lqi:
+      att_control_weight: 1
+      clamp_gain: true
+      gain_generate_rate: 15.0
+      gyro_moment_compensation: true
+      lqi_flag: false
+      r1: 1.0
+      r2: 1.0
+      r3: 1.0
+      r4: 1.0
+      roll_pitch_d: 1.0
+      roll_pitch_i: 0.5
+      roll_pitch_p: 40.0
+      trans_constraint_weight: 100
+      yaw_d: 1.0
+      yaw_i: 0.5
+      yaw_p: 60.0
+      z_d: 10.0
+      z_i: 1.0
+      z_p: 1.0
+    pitch:
+      d_gain: 0.15
+      i_gain: 0.01
+      p_gain: 0.01
+      pid_control_flag: false
+    roll:
+      d_gain: 0.15
+      i_gain: 0.01
+      p_gain: 0.01
+      pid_control_flag: false
+    xy:
+      d_gain: 5.0
+      i_gain: 0.25
+      limit_d: 2
+      limit_i: 1.5
+      limit_p: 3
+      limit_sum: 6.5
+      p_gain: 5.0
+      pid_control_flag: false
+    yaw:
+      d_gain: 0.15
+      i_gain: 0.01
+      limit_d: 4.0
+      limit_err_p: 0.4
+      limit_i: 4.0
+      limit_p: 4.0
+      limit_sum: 6.0
+      need_d_control: false
+      p_gain: 0.01
+      pid_control_flag: false
+    z:
+      d_gain: 5.0
+      force_landing_descending_rate: -0.6
+      i_gain: 2.5
+      landing_err_z: -0.3
+      limit_d: 160
+      limit_err_p: 1.0
+      limit_i: 160
+      limit_p: 160
+      limit_sum: 160
+      p_gain: 5.0
+      pid_control_flag: false
+  cube_side_length: 1000.0
+  data_src: 0
+  debug_fill_in_inf_filter:
+    scan_filter_chain:
+    - name: range_inf_filter
+      params:
+        inf_distance_threshold: 10.0
+      type: laser_filters/LaserRangeInfFilter
+  debug_range_diff_filter:
+    scan_filter_chain:
+    - name: range_diff_filter
+      params:
+        distance_threshold: 1.0
+      type: laser_filters/LaserRangeDiffFilter
+  debug_shadow_laser_filter:
+    range:
+      lower_replacement_value: 0.0
+      lower_threshold: 0.2
+      upper_replacement_value: 100000.0
+      upper_threshold: 15.0
+      use_message_range_limits: false
+    scan_filter_chain:
+    - name: shadows
+      params:
+        max_angle: 175
+        min_angle: 5
+        neighbors: 2
+        window: 2
+      type: laser_filters/ScanShadowsFilter
+    - name: range
+      params:
+        lower_threshold: 0.2
+        upper_threshold: 15
+      type: laser_filters/LaserScanRangeFilter
+    shadows:
+      max_angle: 175.0
+      min_angle: 5.0
+      neighbors: 2
+      remove_shadow_start_point: false
+      window: 2
+  debug_trees_filter:
+    scan_filter_chain:
+    - name: tree
+      params:
+        max_radius: 0.4
+        min_points: 3
+        verbose: false
+      type: laser_filters/LaserClusteringFilter
+  enable_imu_bag: true
+  enable_lidar_bag: true
+  estimation:
+    egomotion_list:
+    - kalman_filter/kf_pos_vel_acc
+    - kalman_filter/kf_pos_vel_acc
+    - kalman_filter/kf_pos_vel_acc
+    experiment_list:
+    - kalman_filter/kf_pos_vel_acc
+    - kalman_filter/kf_pos_vel_acc
+    - kalman_filter/kf_pos_vel_acc
+    fuser_egomotion_id1: 8
+    fuser_egomotion_id2: 16
+    fuser_egomotion_id3: 32
+    fuser_egomotion_name1: /ee/x
+    fuser_egomotion_name2: /ee/y
+    fuser_egomotion_name3: /ee/z
+    fuser_experiment_id1: 8
+    fuser_experiment_id2: 16
+    fuser_experiment_id3: 32
+    fuser_experiment_name1: /ex/x
+    fuser_experiment_name2: /ex/y
+    fuser_experiment_name3: /ex/z
+    mode: 0
+    sensor_list:
+    - sensor_plugin/imu
+    - sensor_plugin/mocap
+    - sensor_plugin/vo
+  fc_rp_min_thre: 1.8
+  fc_t_min_thre: 0.01
+  feature_extract_enable: false
+  filter_size_map: 0.5
+  filter_size_surf: 0.5
+  frame_id: livox_frame
+  mapping:
+    acc_cov: 0.1
+    b_acc_cov: 0.0001
+    b_gyr_cov: 0.0001
+    det_range: 100.0
+    extrinsic_R:
+    - 1
+    - 0
+    - 0
+    - 0
+    - 1
+    - 0
+    - 0
+    - 0
+    - 1
+    extrinsic_T:
+    - -0.011
+    - -0.02329
+    - 0.04412
+    extrinsic_est_en: false
+    fov_degree: 360
+    gyr_cov: 0.1
+  max_iteration: 3
+  mocap_node:
+    optitrack_config:
+      command_port: 1510
+      data_port: 1511
+      enable_optitrack: true
+      multicast_address: 239.255.42.99
+    rigid_bodies:
+      '2':
+        child_frame_id: baselink
+        parent_frame_id: world
+        pose: mocap/pose
+        pose2d: mocap/ground_pose
+  motor_info:
+    force_landing_thrust: 1.1
+    m_f_rate: -0.011
+    max_pwm: 0.975
+    min_pwm: 0.6
+    min_thrust: 0
+    pwm_conversion_mode: 0
+    ref1:
+      max_thrust: 7.8
+      polynominal0: -4.8287044777
+      polynominal1: 0.203228685
+      polynominal2: 0.010576985
+      voltage: 11
+    ref2:
+      max_thrust: 8.6
+      polynominal0: -8.1814872957
+      polynominal1: 0.971954932
+      polynominal2: 0.007079477
+      voltage: 12
+    ref3:
+      max_thrust: 11
+      polynominal0: -18.637065433
+      polynominal1: 3.491470057
+      polynominal2: -0.005535287
+      voltage: 15
+    speed_rate: 10.0
+    vel_ref_num: 3
+  multi_topic: 0
+  navigation:
+    cmd_angle_lev2_gain: 1.5
+    cmd_vel_lev2_gain: 2.0
+    gain_tunning_mode: 0
+    gps_waypoint_check_du: 1.0
+    gps_waypoint_threshold: 3.0
+    joy_target_vel_interval: 0.005
+    joy_target_z_interval: 0.02
+    max_target_tilt_angle: 0.2
+    max_target_vel: 0.5
+    max_target_yaw_rate: 0.1
+    nav_vel_limit: 1.0
+    outdoor_takeoff_height: 1.5
+    takeoff_height: 0.6
+    teleop_local_frame: fc
+    vel_nav_threshold: 5.0
+    xy_control_mode: 0
+  output_data_type: 0
+  pcd_save:
+    interval: -1
+    pcd_save_en: false
+  point_filter_num: 3
+  pointcloud_to_laserscan:
+    angle_increment: 0.008727
+    angle_max: 3.14
+    angle_min: -3.14
+    concurrency_level: 1
+    inf_epsilon: 0.0
+    max_height: 0.2
+    min_height: -0.2
+    range_max: 10.0
+    range_min: 0.1
+    scan_time: 0.1
+    target_frame: multirotor/laser_frame_level
+    transform_tolerance: 0.01
+    use_inf: true
+  preprocess:
+    blind: 0.2
+    lidar_type: 1
+    scan_line: 4
+  publish:
+    dense_publish_en: true
+    path_en: false
+    scan_bodyframe_pub_en: true
+    scan_publish_en: true
+  publish_freq: 10.0
+  robot_description: "<?xml version=\"1.0\" ?>\n<!-- ===================================================================================\
+    \ -->\n<!-- |    This document was autogenerated by xacro from /home/leus/ros/jsk_aerial_robot_ws/src/jsk_aerial_robot/robots/agile_multirotor/urdf/quadrotor.urdf.xacro\
+    \ | -->\n<!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED              \
+    \                   | -->\n<!-- ===================================================================================\
+    \ -->\n<robot name=\"quadrotor\">\n  <!-- general attribute -->\n  <baselink name=\"\
+    fc\"/>\n  <thrust_link name=\"thrust\"/>\n  <!-- dynamics -->\n  <m_f_rate value=\"\
+    -0.006\"/>\n  <!-- [N] -->\n  <!-- dummy root link for KDL -->\n  <link name=\"\
+    root\">\n    <inertial>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <mass\
+    \ value=\"0.00001\"/>\n      <inertia ixx=\"0.000001\" ixy=\"0.0\" ixz=\"0.0\"\
+    \ iyy=\"0.000001\" iyz=\"0.0\" izz=\"0.000002\"/>\n    </inertial>\n  </link>\n\
+    \  <joint name=\"root_joint\" type=\"fixed\">\n    <parent link=\"root\"/>\n \
+    \   <child link=\"main_body\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n \
+    \   <axis xyz=\"0 0 1\"/>\n  </joint>\n  <!-- main_body -->\n  <link name=\"main_body\"\
+    >\n    <inertial>\n      <mass value=\"0.833\"/>\n      <origin rpy=\"0 0 0\"\
+    \ xyz=\"-0.0006654 0.0005569 -0.007939\"/>\n      <inertia ixx=\"0.00525\" ixy=\"\
+    0.0000\" ixz=\"0.0000\" iyy=\"0.00590\" iyz=\"0.00000\" izz=\"0.00928\"/>\n  \
+    \  </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  \
+    \    <geometry>\n        <!-- <mesh filename=\"package://agile_multirotor/urdf/mesh/quadrotor.stl\"\
+    \ /> -->\n        <cylinder length=\"0.3\" radius=\"0.325\"/>\n      </geometry>\n\
+    \    </visual>\n    <!-- collision is not sphere to be able to  -->\n    <collision>\n\
+    \      <origin rpy=\"0 0 0\" xyz=\"0 0 0.00\"/>\n      <geometry>\n        <!--\
+    \ <box size=\"0.3525 0.26 0.04\" /> -->\n        <!-- length should be smaller\
+    \ not to collide to myself -->\n        <cylinder length=\"0.005\" radius=\"0.325\"\
+    />\n      </geometry>\n    </collision>\n  </link>\n  <link name=\"dummy_body_visualize\"\
+    >\n    <inertial>\n      <mass value=\"0.0001\"/>\n      <origin rpy=\"0 0 0\"\
+    \ xyz=\"0 0 0 \"/>\n      <inertia ixx=\"0.000001\" ixy=\"0.0000\" ixz=\"0.0000\"\
+    \ iyy=\"0.000001\" iyz=\"0.00000\" izz=\"0.000001\"/>\n    </inertial>\n    <visual>\n\
+    \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh\
+    \ filename=\"package://agile_multirotor/urdf/mesh/quadrotor.stl\"/>\n      </geometry>\n\
+    \    </visual>\n  </link>\n  <joint name=\"dummy_joint_2\" type=\"fixed\">\n \
+    \   <parent link=\"main_body\"/>\n    <child link=\"dummy_body_visualize\"/>\n\
+    \    <origin rpy=\"0 0 0\" xyz=\"0.0 0.0 0.0\"/>\n  </joint>\n  <joint name=\"\
+    main_body2fc\" type=\"fixed\">\n    <parent link=\"main_body\"/>\n    <child link=\"\
+    fc\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"\
+    fc\">\n    <inertial>\n      <mass value=\"0.05\"/>\n      <origin rpy=\"0 0 0\"\
+    \ xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.00001\" ixy=\"0.0\" ixz=\"0.0\" iyy=\"\
+    0.00001\" iyz=\"0.0\" izz=\"0.00002\"/>\n    </inertial>\n  </link>\n  <joint\
+    \ name=\"main_body2lidar_imu\" type=\"fixed\">\n    <parent link=\"main_body\"\
+    />\n    <child link=\"lidar_imu\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.011 0.02329\
+    \ 0.10588\"/>\n  </joint>\n  <link name=\"lidar_imu\">\n    <inertial>\n     \
+    \ <mass value=\"0.262\"/>\n      <origin rpy=\"0 0 0\" xyz=\"-0.011 -0.02329 0.04412\"\
+    />\n      <inertia ixx=\"0.00111\" ixy=\"0.0\" ixz=\"0.0\" iyy=\"0.00125\" iyz=\"\
+    0.0\" izz=\"0.00122\"/>\n    </inertial>\n  </link>\n  <joint name=\"main_body2battery\"\
+    \ type=\"fixed\">\n    <parent link=\"main_body\"/>\n    <child link=\"battery\"\
+    />\n    <origin rpy=\"0 0 0\" xyz=\"0 0 -0.050\"/>\n  </joint>\n  <link name=\"\
+    battery\">\n    <inertial>\n      <mass value=\"0.270\"/>\n      <origin rpy=\"\
+    0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.000407\" ixy=\"0.0\" ixz=\"0.0\"\
+    \ iyy=\"0.000438\" iyz=\"0.0\" izz=\"0.000048\"/>\n    </inertial>\n  </link>\n\
+    \  <joint name=\"rotor1\" type=\"continuous\">\n    <limit effort=\"100.0\" lower=\"\
+    0.0\" upper=\"15.0\" velocity=\"0.5\"/>\n    <parent link=\"main_body\"/>\n  \
+    \  <child link=\"thrust1\"/>\n    <origin rpy=\"0 0.0 0.0\" xyz=\"-0.11314 -0.11314\
+    \ 0.025\"/>\n    <axis xyz=\"0 0 1\"/>\n  </joint>\n  <link name=\"thrust1\">\n\
+    \    <!-- visual & collisiont -->\n    <inertial>\n      <origin rpy=\"0 0 0\"\
+    \ xyz=\"0 0 0\"/>\n      <mass value=\"0.0052\"/>\n      <inertia ixx=\"0.00000807\"\
+    \ ixy=\"0.0\" ixz=\"0.0\" iyy=\"0.00000807\" iyz=\"0.0\" izz=\"0.00001612\"/>\n\
+    \    </inertial>\n    <!-- <visual>\n        <origin rpy=\"0 0 0\" xyz=\"0 0 0\"\
+    />\n        <geometry>\n\t    <mesh filename=\"package://agile_multirotor/urdf/mesh/5_inch_propeller.stl\"\
+    \ />\n        </geometry>\n      </visual> -->\n  </link>\n  <gazebo reference=\"\
+    main_body\">\n    <dampingFactor>0.00</dampingFactor>\n  </gazebo>\n  <transmission\
+    \ name=\"rotor_tran1\">\n    <type>transmission_interface/SimpleTransmission</type>\n\
+    \    <joint name=\"rotor1\">\n      <!-- TODO: effort is torque, maybe position\
+    \ is enough -->\n      <hardwareInterface>RotorInterface</hardwareInterface>\n\
+    \    </joint>\n    <actuator name=\"rotor1\">\n      <!-- TODO: effort is torque,\
+    \ maybe position is enough -->\n      <hardwareInterface>RotorInterface</hardwareInterface>\n\
+    \      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>\n\
+    \  <joint name=\"rotor2\" type=\"continuous\">\n    <limit effort=\"100.0\" lower=\"\
+    0.0\" upper=\"15.0\" velocity=\"0.5\"/>\n    <parent link=\"main_body\"/>\n  \
+    \  <child link=\"thrust2\"/>\n    <origin rpy=\"0 0.0 0.0\" xyz=\"0.11314 -0.11314\
+    \ 0.025\"/>\n    <axis xyz=\"0 0 -1\"/>\n  </joint>\n  <link name=\"thrust2\"\
+    >\n    <!-- visual & collisiont -->\n    <inertial>\n      <origin rpy=\"0 0 0\"\
+    \ xyz=\"0 0 0\"/>\n      <mass value=\"0.0052\"/>\n      <inertia ixx=\"0.00000807\"\
+    \ ixy=\"0.0\" ixz=\"0.0\" iyy=\"0.00000807\" iyz=\"0.0\" izz=\"0.00001612\"/>\n\
+    \    </inertial>\n    <!-- <visual>\n        <origin rpy=\"0 0 0\" xyz=\"0 0 0\"\
+    />\n        <geometry>\n\t    <mesh filename=\"package://agile_multirotor/urdf/mesh/5_inch_propeller.stl\"\
+    \ />\n        </geometry>\n      </visual> -->\n  </link>\n  <gazebo reference=\"\
+    main_body\">\n    <dampingFactor>0.00</dampingFactor>\n  </gazebo>\n  <transmission\
+    \ name=\"rotor_tran2\">\n    <type>transmission_interface/SimpleTransmission</type>\n\
+    \    <joint name=\"rotor2\">\n      <!-- TODO: effort is torque, maybe position\
+    \ is enough -->\n      <hardwareInterface>RotorInterface</hardwareInterface>\n\
+    \    </joint>\n    <actuator name=\"rotor2\">\n      <!-- TODO: effort is torque,\
+    \ maybe position is enough -->\n      <hardwareInterface>RotorInterface</hardwareInterface>\n\
+    \      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>\n\
+    \  <joint name=\"rotor3\" type=\"continuous\">\n    <limit effort=\"100.0\" lower=\"\
+    0.0\" upper=\"15.0\" velocity=\"0.5\"/>\n    <parent link=\"main_body\"/>\n  \
+    \  <child link=\"thrust3\"/>\n    <origin rpy=\"0 0.0 0.0\" xyz=\"0.11314 0.11314\
+    \ 0.025\"/>\n    <axis xyz=\"0 0 1\"/>\n  </joint>\n  <link name=\"thrust3\">\n\
+    \    <!-- visual & collisiont -->\n    <inertial>\n      <origin rpy=\"0 0 0\"\
+    \ xyz=\"0 0 0\"/>\n      <mass value=\"0.0052\"/>\n      <inertia ixx=\"0.00000807\"\
+    \ ixy=\"0.0\" ixz=\"0.0\" iyy=\"0.00000807\" iyz=\"0.0\" izz=\"0.00001612\"/>\n\
+    \    </inertial>\n    <!-- <visual>\n        <origin rpy=\"0 0 0\" xyz=\"0 0 0\"\
+    />\n        <geometry>\n\t    <mesh filename=\"package://agile_multirotor/urdf/mesh/5_inch_propeller.stl\"\
+    \ />\n        </geometry>\n      </visual> -->\n  </link>\n  <gazebo reference=\"\
+    main_body\">\n    <dampingFactor>0.00</dampingFactor>\n  </gazebo>\n  <transmission\
+    \ name=\"rotor_tran3\">\n    <type>transmission_interface/SimpleTransmission</type>\n\
+    \    <joint name=\"rotor3\">\n      <!-- TODO: effort is torque, maybe position\
+    \ is enough -->\n      <hardwareInterface>RotorInterface</hardwareInterface>\n\
+    \    </joint>\n    <actuator name=\"rotor3\">\n      <!-- TODO: effort is torque,\
+    \ maybe position is enough -->\n      <hardwareInterface>RotorInterface</hardwareInterface>\n\
+    \      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>\n\
+    \  <joint name=\"rotor4\" type=\"continuous\">\n    <limit effort=\"100.0\" lower=\"\
+    0.0\" upper=\"15.0\" velocity=\"0.5\"/>\n    <parent link=\"main_body\"/>\n  \
+    \  <child link=\"thrust4\"/>\n    <origin rpy=\"0 0.0 0.0\" xyz=\"-0.11314 0.11314\
+    \ 0.025\"/>\n    <axis xyz=\"0 0 -1\"/>\n  </joint>\n  <link name=\"thrust4\"\
+    >\n    <!-- visual & collisiont -->\n    <inertial>\n      <origin rpy=\"0 0 0\"\
+    \ xyz=\"0 0 0\"/>\n      <mass value=\"0.0052\"/>\n      <inertia ixx=\"0.00000807\"\
+    \ ixy=\"0.0\" ixz=\"0.0\" iyy=\"0.00000807\" iyz=\"0.0\" izz=\"0.00001612\"/>\n\
+    \    </inertial>\n    <!-- <visual>\n        <origin rpy=\"0 0 0\" xyz=\"0 0 0\"\
+    />\n        <geometry>\n\t    <mesh filename=\"package://agile_multirotor/urdf/mesh/5_inch_propeller.stl\"\
+    \ />\n        </geometry>\n      </visual> -->\n  </link>\n  <gazebo reference=\"\
+    main_body\">\n    <dampingFactor>0.00</dampingFactor>\n  </gazebo>\n  <transmission\
+    \ name=\"rotor_tran4\">\n    <type>transmission_interface/SimpleTransmission</type>\n\
+    \    <joint name=\"rotor4\">\n      <!-- TODO: effort is torque, maybe position\
+    \ is enough -->\n      <hardwareInterface>RotorInterface</hardwareInterface>\n\
+    \    </joint>\n    <actuator name=\"rotor4\">\n      <!-- TODO: effort is torque,\
+    \ maybe position is enough -->\n      <hardwareInterface>RotorInterface</hardwareInterface>\n\
+    \      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>\n\
+    \  <joint name=\"laser_joint\" type=\"fixed\">\n    <origin rpy=\"0 0 0\" xyz=\"\
+    0.0 0.0 0.076\"/>\n    <parent link=\"main_body\"/>\n    <child link=\"laser_frame\"\
+    />\n  </joint>\n  <link name=\"laser_frame\">\n    <inertial>\n      <mass value=\"\
+    0.270\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"\
+    2.632e-4\" ixy=\"0\" ixz=\"0\" iyy=\"2.632e-4\" iyz=\"0\" izz=\"1.62e-4\"/>\n\
+    \    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+    \      <geometry>\n        <mesh filename=\"package://hector_sensors_description/meshes/hokuyo_utm30lx/hokuyo_utm_30lx.dae\"\
+    />\n      </geometry>\n    </visual>\n    <collision>\n      <origin rpy=\"0 0\
+    \ 0\" xyz=\"0 0 -0.0115\"/>\n      <geometry>\n        <box size=\"0.058 0.058\
+    \ 0.087\"/>\n        <!--<mesh filename=\"package://hector_sensors_description/meshes/hokuyo_utm30lx/hokuyo_utm_30lx.stl\"\
+    />-->\n      </geometry>\n    </collision>\n  </link>\n</robot>\n\n"
+  robot_model_plugin_name: hydrus_tilted_robot_model
+  robot_state_publisher_leus_desktop_6462_2085272380370059936:
+    tf_prefix: multirotor
+  rosserial_server:
+    baud: 921600
+    port: /dev/flight_controller
+  rotor_tf_publisher_leus_desktop_6462_4007731006725028535:
+    tf_prefix: multirotor
+  rp_position_margin_thre: 0.13
+  runtime_pos_log_enable: false
+  sensor_plugin:
+    imu:
+      angle_bias_noise_sigma: 0.0002
+      calib_time: 2.0
+      estimate_mode: 3
+      imu_board: 1
+      imu_topic_name: imu
+      level_acc_bias_noise_sigma: 0.001
+      level_acc_noise_sigma: 0.05
+      z_acc_bias_noise_sigma: 0.001
+      z_acc_noise_sigma: 0.05
+    mocap:
+      acc_bias_noise_sigma: 0.001
+      angle_sigma: 0.005
+      estimate_mode: 6
+      health_timeout: 0.5
+      mocap_sub_name: mocap/pose
+      pos_noise_sigma: 0.0002
+      time_sync: false
+      unhealth_level: 3
+    vo:
+      fusion_mode: 2
+      level_pos_noise_sigma: 0.01
+      local_vel_mode: false
+      reference_frame: fc
+      reset_duration: 0.5
+      sensor_frame: lidar_imu
+      time_sync: false
+      vel_noise_sigma: 0.01
+      vio_mode: true
+      vo_sub_topic_name: Odometry_precede
+      z_pos_noise_sigma: 0.01
+      z_vel_mode: false
+    vo1:
+      estimate_mode: 1
+      throttle_rate: 120
+  tree_tracking_node:
+    frame_name: multirotor/laser_frame
+    laser_scan_topic_name: scan_clustered
+    tree_margin_radius: 0.5
+    uav_odom_topic_name: uav/cog/odom
+    verbose: false
+  uav_model: 0
+  user_config_path: /home/leus/ros/jsk_aerial_robot_ws/src/livox_ros_driver2/config/MID360_config.json
+  whole_laser_filter:
+    range:
+      lower_replacement_value: 0.0
+      lower_threshold: 0.2
+      upper_replacement_value: 100000.0
+      upper_threshold: 15.0
+      use_message_range_limits: false
+    scan_filter_chain:
+    - name: range_inf_filter
+      params:
+        inf_distance_threshold: 10.0
+      type: laser_filters/LaserRangeInfFilter
+    - name: shadows
+      params:
+        max_angle: 175
+        min_angle: 5
+        neighbors: 2
+        window: 2
+      type: laser_filters/ScanShadowsFilter
+    - name: range
+      params:
+        lower_threshold: 0.2
+        upper_threshold: 15
+      type: laser_filters/LaserScanRangeFilter
+    - name: range_diff_filter
+      params:
+        distance_threshold: 1.0
+      type: laser_filters/LaserRangeDiffFilter
+    - name: tree
+      params:
+        max_radius: 0.4
+        min_points: 3
+        verbose: false
+      type: laser_filters/LaserClusteringFilter
+    shadows:
+      max_angle: 175.0
+      min_angle: 5.0
+      neighbors: 2
+      remove_shadow_start_point: false
+      window: 2
+  wrench_mat_det_thre: 0
+  xfer_format: 1
+  zeros:
+    rotor1: 0
+    rotor2: 0
+    rotor3: 0
+    rotor4: 0
+    rotor5: 0
+    rotor6: 0
+    rotor7: 0
+    rotor8: 0
+rosdistro: 'noetic
+
+  '
+roslaunch:
+  uris:
+    host_192_168_1_112__32853: http://192.168.1.112:32853/
+    host_192_168_1_229__42105: http://192.168.1.229:42105/
+    host_192_168_1_229__42693: http://192.168.1.229:42693/
+rosversion: '1.16.0
+
+  '
+run_id: be1fec14-a62a-11ef-93ba-48b02d077d93
