@@ -21,6 +21,8 @@
 #include <geometry_msgs/Point.h>
 #include <sensor_msgs/LaserScan.h>
 
+constexpr double PI = 3.141592653589793;
+
 using Scalar = double;
 static constexpr int Dynamic = Eigen::Dynamic;
 template <int rows = Dynamic, int cols = Dynamic>

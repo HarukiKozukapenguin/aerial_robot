@@ -215,9 +215,16 @@ void ObstacleCalculator::CalculatorCallback(
   std_msgs::Float64 min_dist_msg;
   min_dist_msg.data = min_dist;
   obs_min_dist_pub_.publish(min_dist_msg);
+  std::vector<Scalar>adjusted_theta_list, adjusted_acc_theta_list;
+  for (auto theta: theta_list_){
+    adjusted_theta_list.push_back(theta - euler[2]*360/PI);
+  }
+  for (auto acc_theta: acc_theta_list_){
+    adjusted_acc_theta_list.push_back(acc_theta - euler[2]*360/PI);
+  }
 
   Vector<Vision::Theta_Cuts> sphericalboxel =
-      getsphericalboxel<Vector<Vision::Theta_Cuts>>(converted_positions, poll_x, poll_y, poll_z, theta_list_, quad_pos_);
+      getsphericalboxel<Vector<Vision::Theta_Cuts>>(converted_positions, poll_x, poll_y, poll_z, adjusted_theta_list, quad_pos_);
 
   Vector<3> vel_2d = {vel[0], vel[1], 0};
   Vector<3> body_vel = R_T * vel_2d;
