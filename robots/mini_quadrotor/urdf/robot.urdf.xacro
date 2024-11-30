@@ -64,7 +64,7 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="package://mini_quadrotor/urdf/mesh/prop_5inch.dae" />
+          <mesh filename="package://mini_quadrotor/urdf/mesh/prop_5inch.dae" scale="0.5 0.5 0.5"/>
         </geometry>
       </visual>
     </link>
@@ -116,13 +116,13 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mini_quadrotor/urdf/mesh/main_body_livox.dae" />
+        <mesh filename="package://mini_quadrotor/urdf/mesh/main_body_livox.dae" scale="0.5 0.5 0.5"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.28 0.28 0.072" />
+        <box size="0.14 0.14 0.072" />
       </geometry>
     </collision>
   </link>
@@ -152,7 +152,7 @@
   </xacro:extra_module>
 
   <!-- battery -->
-  <xacro:extra_module name = "battery" parent = "main_body" visible = "1" model_url = "package://mini_quadrotor/urdf/mesh/turnigy_3S_2200mAh.dae" >
+  <xacro:extra_module name = "battery" parent = "main_body" visible = "1" model_url = "package://mini_quadrotor/urdf/mesh/turnigy_3S_2200mAh.dae" scale="0.5 0.5 0.5" >
     <origin xyz="0.0 0 -0.035" rpy="${pi/2} 0 0"/>
     <inertial>
       <mass value = "0.0188" />
