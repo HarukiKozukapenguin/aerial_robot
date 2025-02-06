@@ -361,6 +361,7 @@ namespace gazebo_ros_control
       }
     else if (control_mode_ ==  FORCE_CONTROL_MODE)
       {
+	int stop_rotor = 1;
         for (int j = 0; j < rotor_n_dof_; j++)
           {
             hardware_interface::RotorHandle rotor = spinal_interface_.getHandle(sim_rotors_.at(j)->GetName());
@@ -368,9 +369,15 @@ namespace gazebo_ros_control
             gazebo::physics::LinkPtr child_link  = sim_rotors_.at(j)->GetChild();
 
 #if GAZEBO_MAJOR_VERSION >= 8
+	    if (j == stop_rotor){
+            child_link->AddRelativeForce(ignition::math::Vector3d(0, 0, 0.0));
+            parent_link->AddRelativeTorque(ignition::math::Vector3d(0.0, 0.0, 0.0));
+	    }
+	    else{
             child_link->AddRelativeForce(ignition::math::Vector3d(0, 0, rotor.getForce()));
             auto  torque = rotor.getTorque();
             parent_link->AddRelativeTorque(ignition::math::Vector3d(torque.x(), torque.y(), torque.z()));
+	    }
 #else
             child_link->AddRelativeForce(gazebo::math::Vector3(0, 0, rotor.getForce()));
             auto  torque = rotor.getTorque();
