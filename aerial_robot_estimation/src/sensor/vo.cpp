@@ -239,7 +239,8 @@ namespace sensor_plugin
 
         /** step1: ^{w}H_{b} **/
         tf::Transform w_b_f;
-        tf::Matrix3x3 base_rot = estimator_->getOrientation(Frame::BASELINK, EGOMOTION_ESTIMATE);
+        tf::Matrix3x3 base_rot;
+	base_rot.setIdentity();
         w_b_f.setBasis(base_rot);
 
         tf::Vector3 baselink_pos = estimator_->getPos(Frame::BASELINK, EGOMOTION_ESTIMATE);
